@@ -1,9 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <head> Title of the webpage</head>
+<head>
+    <style>
+        /* Style for the heading bar */
+        .header {
+            background-color: #333; /* Background color of the header */
+            color: white; /* Text color */
+            padding: 15px; /* Padding around content */
+            display: flex; /* Flex layout to align items */
+            align-items: center; /* Center items vertically */
+        }
 
+        /* Style for the logo */
+        .logo {
+            font-size: 24px; /* Font size of the logo */
+            font-weight: bold; /* Bold text */
+            text-decoration: none; /* Remove underline from link */
+            color: white; /* Text color */
+            margin-right: 20px; /* Spacing on the right side of the logo */
+        }
+
+        /* Style for navigation tabs */
+        .nav {
+            list-style: none; /* Remove list bullets */
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav li {
+            display: inline; /* Display navigation items horizontally */
+            margin-right: 20px; /* Spacing between navigation items */
+        }
+
+        .nav a {
+            text-decoration: none; /* Remove underline from links */
+            color: white; /* Text color */
+        }
+
+        .nav a:hover {
+            border-bottom: 2px solid #ff5733; /* Highlight on hover */
+        }
+    </style>
+</head>
 <body>
-<h1>Demo web page for Ayush</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <div class="header">
+        <a class="logo" href="index.html">Your Logo</a>
+        <ul class="nav">
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="aboutme.html">About Me</a></li>
+            <li><a href="contact.html">Contact Me</a></li>
+        </ul>
+    </div>
 </body>
 </html>
