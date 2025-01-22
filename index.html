@@ -1,0 +1,1356 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="AI-generated website">
+      <meta name="theme-color" content="#ffffff">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="robots" content="index, follow">
+      
+      <!-- Performance optimization: Preload critical resources -->
+      <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+      <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" as="style">
+      
+      <!-- {headerScripts} -->
+
+      <!-- Core CSS -->
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+             colors: {
+                primary: {
+                  50: '#f8f8f8',
+                  100: '#e8e8e8',
+                  200: '#d3d3d3',
+                  300: '#a3a3a3',
+                  400: '#737373',
+                  500: '#525252',
+                  600: '#404040',
+                  700: '#262626',
+                  800: '#171717',
+                  900: '#0a0a0a',
+                  950: '#030303',
+                },
+                secondary: {
+                  50: '#f8f8f8',
+                  100: '#e8e8e8',
+                  200: '#d3d3d3',
+                  300: '#a3a3a3',
+                  400: '#737373',
+                  500: '#525252',
+                  600: '#404040',
+                  700: '#262626',
+                  800: '#171717',
+                  900: '#0a0a0a',
+                  950: '#030303',
+                },
+                accent: {
+                  50: '#f8f8f8',
+                  100: '#e8e8e8',
+                  200: '#d3d3d3',
+                  300: '#a3a3a3',
+                  400: '#737373',
+                  500: '#525252',
+                  600: '#404040',
+                  700: '#262626',
+                  800: '#171717',
+                  900: '#0a0a0a',
+                  950: '#030303',
+                },
+              },
+              fontFamily: {
+                sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+                heading: ['Montserrat', 'Inter', 'system-ui', 'sans-serif'],
+              },
+              spacing: {
+                '18': '4.5rem',
+                '22': '5.5rem',
+                '30': '7.5rem',
+              },
+              maxWidth: {
+                '8xl': '88rem',
+                '9xl': '96rem',
+              },
+              animation: {
+                'fade-in': 'fadeIn 0.5s ease-in',
+                'fade-out': 'fadeOut 0.5s ease-out',
+                'slide-up': 'slideUp 0.5s ease-out',
+                'slide-down': 'slideDown 0.5s ease-out',
+                'slide-left': 'slideLeft 0.5s ease-out',
+                'slide-right': 'slideRight 0.5s ease-out',
+                'scale-in': 'scaleIn 0.5s ease-out',
+                'scale-out': 'scaleOut 0.5s ease-out',
+                'spin-slow': 'spin 3s linear infinite',
+                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'bounce-slow': 'bounce 3s infinite',
+                'float': 'float 3s ease-in-out infinite',
+              },
+              keyframes: {
+                fadeIn: {
+                  '0%': { opacity: '0' },
+                  '100%': { opacity: '1' },
+                },
+                fadeOut: {
+                  '0%': { opacity: '1' },
+                  '100%': { opacity: '0' },
+                },
+                slideUp: {
+                  '0%': { transform: 'translateY(20px)', opacity: '0' },
+                  '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                slideDown: {
+                  '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                  '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                slideLeft: {
+                  '0%': { transform: 'translateX(20px)', opacity: '0' },
+                  '100%': { transform: 'translateX(0)', opacity: '1' },
+                },
+                slideRight: {
+                  '0%': { transform: 'translateX(-20px)', opacity: '0' },
+                  '100%': { transform: 'translateX(0)', opacity: '1' },
+                },
+                scaleIn: {
+                  '0%': { transform: 'scale(0.9)', opacity: '0' },
+                  '100%': { transform: 'scale(1)', opacity: '1' },
+                },
+                scaleOut: {
+                  '0%': { transform: 'scale(1.1)', opacity: '0' },
+                  '100%': { transform: 'scale(1)', opacity: '1' },
+                },
+                float: {
+                  '0%, 100%': { transform: 'translateY(0)' },
+                  '50%': { transform: 'translateY(-10px)' },
+                },
+              },
+              aspectRatio: {
+                'portrait': '3/4',
+                'landscape': '4/3',
+                'ultrawide': '21/9',
+              },
+            },
+          },
+          variants: {
+            extend: {
+              opacity: ['disabled'],
+              cursor: ['disabled'],
+              backgroundColor: ['active', 'disabled'],
+              textColor: ['active', 'disabled'],
+            },
+          },
+        }
+      </script>
+
+      <!-- Utilities and Components -->
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"></script>
+      <script defer src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
+      
+      <!-- Optimized Font Loading -->
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+      
+      <!-- Icons -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+      <!-- Base Styles -->
+      <style>
+
+      * {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+/* Webkit browsers like Chrome, Safari, newer Edge */
+*::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+          width: 0px;
+        }
+        
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+          background: #888;
+          border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+          background: #666;
+        }
+
+        /* Remove tap highlight on mobile */
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Improve text rendering */
+        body {
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Focus outline styles */
+        :focus-visible {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+          .no-print {
+            display: none !important;
+          }
+          
+          a[href]:after {
+            content: " (" attr(href) ")";
+          }
+        }
+      </style>
+
+      <!-- Enhanced Image Handler -->
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                const img = entry.target;
+                if (img.dataset.src) {
+                  const tempImage = new Image();
+                  tempImage.onload = () => {
+                    img.src = img.dataset.src;
+                    img.classList.remove('opacity-0');
+                    img.classList.add('opacity-100');
+                  };
+                  tempImage.src = img.dataset.src;
+                  img.removeAttribute('data-src');
+                  observer.unobserve(img);
+                }
+              }
+            });
+          }, {
+            rootMargin: '50px 0px',
+            threshold: 0.01
+          });
+
+          const loadImage = (img) => {
+            if ('loading' in HTMLImageElement.prototype) {
+              img.loading = 'lazy';
+            }
+            
+            img.classList.add('transition-opacity', 'duration-300', 'opacity-0');
+            
+            img.onerror = () => {
+              const width = img.getAttribute('width') || img.clientWidth || 300;
+              const height = img.getAttribute('height') || img.clientHeight || 200;
+              img.src = `https://placehold.co/${width}x${height}/DEDEDE/555555?text=Image+Unavailable`;
+              img.alt = 'Image unavailable';
+              img.classList.remove('opacity-0');
+              img.classList.add('opacity-100', 'error-image');
+            };
+
+            if (img.dataset.src) {
+              imageObserver.observe(img);
+            } else {
+              img.classList.remove('opacity-0');
+              img.classList.add('opacity-100');
+            }
+          };
+
+          document.querySelectorAll('img[data-src], img:not([data-src])').forEach(loadImage);
+
+          // Watch for dynamically added images
+          new MutationObserver((mutations) => {
+            mutations.forEach(mutation => {
+              mutation.addedNodes.forEach(node => {
+                if (node.nodeType === 1) {
+                  if (node.tagName === 'IMG') {
+                    loadImage(node);
+                  }
+                  node.querySelectorAll('img').forEach(loadImage);
+                }
+              });
+            });
+          }).observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+        });
+
+        // Performance monitoring
+        if ('performance' in window && 'PerformanceObserver' in window) {
+          // Create performance observer
+          const observer = new PerformanceObserver((list) => {
+            const entries = list.getEntries();
+            entries.forEach((entry) => {
+              if (entry.entryType === 'largest-contentful-paint') {
+                // console.log(`LCP: ${entry.startTime}ms`);
+              }
+              if (entry.entryType === 'first-input') {
+                // console.log(`FID: ${entry.processingStart - entry.startTime}ms`);
+              }
+              if (entry.entryType === 'layout-shift') {
+                // console.log(`CLS: ${entry.value}`);
+              }
+            });
+          });
+
+          // Observe performance metrics
+          observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+
+          // Log basic performance metrics
+          window.addEventListener('load', () => {
+            const timing = performance.getEntriesByType('navigation')[0];
+            console.log({
+              'DNS Lookup': timing.domainLookupEnd - timing.domainLookupStart,
+              'TCP Connection': timing.connectEnd - timing.connectStart,
+              'DOM Content Loaded': timing.domContentLoadedEventEnd - timing.navigationStart,
+              'Page Load': timing.loadEventEnd - timing.navigationStart
+            });
+          });
+        }
+
+        // Handle offline/online status
+        window.addEventListener('online', () => {
+          document.body.classList.remove('offline');
+          console.log('Connection restored');
+        });
+        
+        window.addEventListener('offline', () => {
+          document.body.classList.add('offline');
+          console.log('Connection lost');
+        });
+      </script>
+   </head>
+   <body class="antialiased text-gray-800 min-h-screen flex flex-col">
+      <!-- Skip to main content link for accessibility -->
+      <a href="#main-content" 
+         class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:p-4 focus:bg-white focus:text-black">
+         Skip to main content
+      </a>
+
+      <!-- Header -->
+      <header class="relative z-50 bg-white dark:bg-gray-900">
+        <!-- Header content goes here -->
+      </header>
+
+      <!-- Main content area -->
+      <main id="main-content" class="flex-1 relative ">
+        <!-- Content will be injected here -->
+      </main>
+
+      <!-- {bodyScripts} -->
+
+   </body>
+</html><element id="a86ef094-994e-4341-a6f9-a9758c03a869" data-section-id="a86ef094-994e-4341-a6f9-a9758c03a869">
+
+<htmlCode>
+<div id="root">
+  <nav id="navbar" class="fixed w-full bg-neutral-900 text-white py-4 z-50">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center">
+        <a href="#" class="text-xl font-bold animate__animated animate__fadeIn">Ayush Shah</a>
+        
+        <!-- Mobile menu button -->
+        <button id="menu-btn" class="lg:hidden text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        <!-- Desktop menu -->
+        <div class="hidden lg:flex space-x-8">
+          <a href="#home" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">Home</a>
+          <a href="#education" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">Education</a>
+          <a href="#experience" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">Experience</a>
+          <a href="#projects" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">Projects</a>
+          <a href="#skills" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">Skills</a>
+          <a href="#about" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">About</a>
+          <a href="#contact" class="hover:text-blue-400 transition-colors animate__animated animate__fadeIn">Contact</a>
+        </div>
+      </div>
+
+      <!-- Mobile menu -->
+      <div id="mobile-menu" class="hidden lg:hidden mt-4">
+        <div class="flex flex-col space-y-4">
+          <a href="#home" class="hover:text-blue-400 transition-colors">Home</a>
+          <a href="#education" class="hover:text-blue-400 transition-colors">Education</a>
+          <a href="#experience" class="hover:text-blue-400 transition-colors">Experience</a>
+          <a href="#projects" class="hover:text-blue-400 transition-colors">Projects</a>
+          <a href="#skills" class="hover:text-blue-400 transition-colors">Skills</a>
+          <a href="#about" class="hover:text-blue-400 transition-colors">About</a>
+          <a href="#contact" class="hover:text-blue-400 transition-colors">Contact</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+
+    // Close mobile menu when window is resized to desktop view
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        mobileMenu.classList.add('hidden');
+      }
+    });
+  </script>
+</div>
+</htmlCode></element><element id="414a8386-dd6b-43d5-9b3f-37335c0310f3" data-section-id="414a8386-dd6b-43d5-9b3f-37335c0310f3">
+
+<htmlCode>
+<div id="root">
+  <section id="hero" class="min-h-screen bg-neutral-900 text-white pt-20">
+    <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-center h-full gap-12 py-20">
+      <!-- Left Content -->
+      <div class="lg:w-1/2 space-y-8 animate__animated animate__fadeInLeft">
+        <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+          Hi, I'm <span class="text-blue-400">Ayush Shah</span>
+        </h1>
+        <h2 class="text-2xl md:text-3xl text-gray-300">Data Science Student</h2>
+        <p class="text-lg text-gray-400 leading-relaxed">
+          Passionate data science enthusiast currently pursuing my degree at the University of Michigan. I specialize in machine learning, data visualization, and statistical analysis, aiming to leverage data-driven insights to solve real-world problems.
+        </p>
+        <div class="flex gap-4">
+          <a href="#contact" class="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-full transition-all duration-300 font-semibold inline-block">
+            Contact Me
+          </a>
+          <a href="#" class="border border-blue-400 hover:bg-blue-400/10 px-6 py-3 rounded-full transition-all duration-300 font-semibold inline-block">
+            Download Resume
+          </a>
+        </div>
+        <div class="flex gap-6 pt-4">
+          <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right Content - Animated Background -->
+      <div class="lg:w-1/2 flex justify-center items-center relative animate__animated animate__fadeInRight">
+        <div class="w-72 h-72 md:w-96 md:h-96 bg-blue-500/20 rounded-full blur-3xl absolute -z-10"></div>
+        <div class="w-72 h-72 md:w-96 md:h-96 bg-purple-500/20 rounded-full blur-3xl absolute top-20 left-20 -z-10"></div>
+        <div class="flex items-center justify-center relative z-10 border-neutral-700 h-full">
+          <div class="aspect-square w-64 h-64 md:w-80 md:h-80 rounded-xl bg-neutral-700 flex items-center justify-center p-5">
+            <img 
+              src="Profile_photo.jpeg" 
+              alt="Profile Photo" 
+              class="w-full h-full object-cover rounded-xl"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</htmlCode></element><element id="35a1f4c3-1d01-44fa-938c-ec25548d95ac" data-section-id="35a1f4c3-1d01-44fa-938c-ec25548d95ac">
+
+<htmlCode>
+<div id="root">
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-16 animate__animated animate__fadeInUp">
+        About <span class="text-blue-500">Me</span>
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Personal Info -->
+        <div class="space-y-6 animate__animated animate__fadeInLeft">
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-800">Who I Am</h3>
+            <p class="text-gray-600 leading-relaxed">
+              I'm a passionate data science student at the University of Michigan, driven by the potential of data to transform industries and solve complex problems. My academic journey has equipped me with strong analytical skills and a deep understanding of statistical methods.
+            </p>
+          </div>
+
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-800">My Goals</h3>
+            <p class="text-gray-600 leading-relaxed">
+              I aim to leverage my expertise in data science to drive innovation and create meaningful impact. My focus is on developing scalable solutions that transform raw data into actionable insights for businesses and organizations.
+            </p>
+          </div>
+        </div>
+
+        <!-- Interests & Hobbies -->
+        <div class="space-y-6 animate__animated animate__fadeInRight">
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-800">Interests</h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                  </svg>
+                </div>
+                <span class="text-gray-700">Machine Learning</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                  </svg>
+                </div>
+                <span class="text-gray-700">Data Visualization</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                  </svg>
+                </div>
+                <span class="text-gray-700">AI Research</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                  <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                  </svg>
+                </div>
+                <span class="text-gray-700">Deep Learning</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="text-2xl font-semibold mb-4 text-gray-800">Hobbies</h3>
+            <ul class="text-gray-600 space-y-2">
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>Competitive Programming</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>Open Source Contributing</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>Tech Blogging</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</htmlCode></element><element id="f597a86e-994c-4259-bc4b-5f0da783cadc" data-section-id="f597a86e-994c-4259-bc4b-5f0da783cadc">
+
+
+                
+                <htmlcode id="el-kfn5s76z">
+<div id="root">
+  <section id="education" class="py-20 bg-neutral-900 text-white relative overflow-hidden">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-16 animate__animated animate__fadeInUp">
+        My <span class="text-blue-400">Education</span>
+      </h2>
+      <p class="text-center text-xl text-gray-300 mb-16 animate__animated animate__fadeInUp animate__delay-1s">Building a Foundation in Data Science and Technology</p>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="relative">
+          <!-- Timeline Line -->
+          <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-blue-400"></div>
+
+          <!-- University of Michigan -->
+          <div class="relative mb-16 animate__animated animate__fadeInLeft">
+            <div class="flex items-center mb-8">
+              <div class="w-1/2 pr-8 text-right">
+                <h3 class="text-2xl font-bold text-blue-400">University of Michigan</h3>
+                <p class="text-gray-400">School of Information</p>
+                <p class="text-sm text-gray-500">Ann Arbor, MI | Apr 2025</p>
+              </div>
+              <div class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center z-10">
+                <i class="fas fa-graduation-cap text-white text-xl"></i>
+              </div>
+              <div class="w-1/2 pl-8">
+                <p class="font-semibold">Master of Science in Information (MSI)</p>
+                <p class="text-gray-400">Focus in Data Science and Data Analytics</p>
+              </div>
+            </div>
+            <div class="ml-[calc(50%+2rem)] pl-8">
+              <h4 class="text-lg font-semibold mb-2 text-blue-400">Relevant Coursework</h4>
+              <ul class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                <li class="flex items-center"><i class="fas fa-book-open mr-2 text-blue-400"></i>Information Retrieval</li>
+                <li class="flex items-center"><i class="fas fa-brain mr-2 text-blue-400"></i>Applied Machine Learning</li>
+                <li class="flex items-center"><i class="fas fa-database mr-2 text-blue-400"></i>Data Mining</li>
+                <li class="flex items-center"><i class="fas fa-chart-bar mr-2 text-blue-400"></i>Data Manipulation and Visualization</li>
+                <li class="flex items-center"><i class="fas fa-chart-line mr-2 text-blue-400"></i>Business Analytics</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- VJTI -->
+          <div class="relative animate__animated animate__fadeInRight">
+            <div class="flex items-center mb-8">
+              <div class="w-1/2 pr-8 text-right">
+                <h3 class="text-2xl font-bold text-purple-400">VJTI</h3>
+                <p class="text-gray-400">Veermata Jijabai Technological Institute</p>
+                <p class="text-sm text-gray-500">Mumbai, India | May 2021</p>
+              </div>
+              <div class="w-12 h-12 bg-purple-400 rounded-full flex items-center justify-center z-10">
+                <i class="fas fa-university text-white text-xl"></i>
+              </div>
+              <div class="w-1/2 pl-8">
+                <p class="font-semibold">Bachelor of Technology</p>
+                <p class="text-gray-400">Electronics and Communication</p>
+              </div>
+            </div>
+            <div class="ml-[calc(50%+2rem)] pl-8">
+              <h4 class="text-lg font-semibold mb-2 text-purple-400">Relevant Coursework</h4>
+              <ul class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                <li class="flex items-center"><i class="fas fa-database mr-2 text-purple-400"></i>Database Management</li>
+                <li class="flex items-center"><i class="fas fa-network-wired mr-2 text-purple-400"></i>Computer Networks</li>
+                <li class="flex items-center"><i class="fas fa-image mr-2 text-purple-400"></i>Digital Image Processing</li>
+                <li class="flex items-center"><i class="fas fa-link mr-2 text-purple-400"></i>Blockchain Technologies</li>
+                <li class="flex items-center"><i class="fas fa-shield-alt mr-2 text-purple-400"></i>E-Security</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="absolute top-0 right-0 -z-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 -z-10 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl"></div>
+  </section>
+</div>
+</htmlcode>
+              
+              </element><element id="c38b1750-1fc5-4b7d-8d9c-45a1160e07e5" data-section-id="c38b1750-1fc5-4b7d-8d9c-45a1160e07e5">
+
+
+                
+                <htmlcode id="el-8d8mnsfi">
+<div id="root">
+  <section id="experience" class="py-20 bg-white">
+  <!-- Header Section -->
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Work Experience</h2>
+      <p class="text-xl text-gray-600">A Journey of Growth, Innovation, and Impact</p>
+    </div>
+
+    <!-- Experience Timeline -->
+    <div class="max-w-4xl mx-auto">
+      <!-- Graduate Research Assistant -->
+      <div class="mb-12 relative">
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800">Graduate Research Assistant</h3>
+              <p class="text-gray-600">Ann Arbor, MI | Prof. Elle O'Brien</p>
+            </div>
+            <span class="text-gray-500">Sept 2024</span>
+          </div>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li class="mb-2">Developed a programmatic data collection pipeline for efficient keyword-based academic publication retrieval.</li>
+            <li class="mb-2">Delivered clean and effective Python code, showcasing advanced programming and project management skills.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Instructional Aide -->
+      <div class="mb-12">
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800">Instructional Aide and Peer Tutor</h3>
+              <p class="text-gray-600">Ann Arbor, MI | SI 618 - Data Manipulation</p>
+            </div>
+            <span class="text-gray-500">Sept 2024</span>
+          </div>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li class="mb-2">Led lab sessions and one-on-one tutoring for 50+ students, improving course performance by 15%.</li>
+            <li class="mb-2">Graded 100+ assignments per semester, enhancing problem-solving efficiency by 25%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Data Analyst Intern -->
+      <div class="mb-12">
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800">Data Analyst Intern – Michigan Medicine</h3>
+              <p class="text-gray-600">Ann Arbor, MI</p>
+            </div>
+            <span class="text-gray-500">May 2024</span>
+          </div>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li class="mb-2">Developed predictive models for primary care and ER operations, optimizing resources and reducing wait times by 15%.</li>
+            <li class="mb-2">Conducted feasibility studies for a dermatology department acquisition, analyzing staffing and financial metrics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Data Management Fellow -->
+      <div class="mb-12">
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800">Data Management Fellow – University of Michigan</h3>
+              <p class="text-gray-600">Ann Arbor, MI</p>
+            </div>
+            <span class="text-gray-500">Sept 2023</span>
+          </div>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li class="mb-2">Created 20+ customized dashboards for analyzing trends across 5,000+ students.</li>
+            <li class="mb-2">Improved Salesforce information flow diagrams, enhancing operational efficiency by 20%.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Senior Associate Software Engineer -->
+      <div class="mb-12">
+        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <h3 class="text-2xl font-bold text-gray-800">Senior Associate Software Engineer – Telstra</h3>
+              <p class="text-gray-600">Pune, India</p>
+            </div>
+            <span class="text-gray-500">Jul 2021 – May 2023</span>
+          </div>
+          <ul class="list-disc ml-6 text-gray-700">
+            <li class="mb-2">Managed 111 million records for IFRS compliance using advanced tools, processing data in 1.5 hours.</li>
+            <li class="mb-2">Led customer behavior data analysis, driving a 25% increase in retention and loyalty.</li>
+            <li class="mb-2">Optimized APIs, reducing invoice retrieval and bill generation time by 25%.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</htmlcode>
+              
+              </element><element id="0328494c-ab62-4efd-a3f5-236eeb9fb7a2" data-section-id="0328494c-ab62-4efd-a3f5-236eeb9fb7a2">
+
+
+                
+                <htmlcode id="el-lhp0x0n6">
+<div id="root">
+  <section id="projects" class="py-20 bg-neutral-900 text-white">
+    <div class="container mx-auto px-4" id="el-kw6scwy6">
+      <div class="container mx-auto px-4 py-16" id="el-pmsvtxwr">
+  <!-- Header Section -->
+  <header class="text-center mb-16">
+    <h2 class="text-4xl font-bold mb-4 animate__animated animate__fadeInUp">
+      My <span class="text-blue-600">Projects</span>
+    </h2>
+    <p class="text-gray-600 text-xl mb-8 animate__animated animate__fadeInUp animate__delay-1s">
+      Explore My Journey Through Data Science and Analytics Projects
+    </p>
+  </header>
+
+  <!-- Project Categories Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Sports Analytics -->
+    <div class="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105">
+      <div class="flex items-center mb-4">
+        <i class="fas fa-running text-blue-600 text-2xl mr-3"></i>
+        <h3 class="text-xl font-semibold" style="color: rgb(35, 35, 35);">Sports Analytics and Data Science</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <h4 class="font-medium" style="color: rgb(18, 18, 18);">Penalty Direction Prediction Model</h4>
+          <span class="inline-block px-3 py-1 text-sm bg-yellow-100 text-yellow-800 rounded-full">Ongoing</span>
+          <p class="text-gray-600 mt-2">Machine learning model with 10% accuracy improvement using VAEP metrics</p>
+          <button class="mt-3 text-blue-600 hover:text-blue-800 flex items-center">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Machine Learning -->
+    <div class="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105">
+      <div class="flex items-center mb-4">
+        <i class="fas fa-brain text-blue-600 text-2xl mr-3"></i>
+        <h3 class="text-xl font-semibold" style="color: rgb(20, 20, 20);">Machine Learning and Network Analysis</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <h4 class="font-medium" style="color: rgb(29, 29, 29);">Intrusion Detection System</h4>
+          <span class="inline-block px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">Completed</span>
+          <p class="text-gray-600 mt-2">98.7% detection rate using KNN and Regression algorithms</p>
+          <button class="mt-3 text-blue-600 hover:text-blue-800 flex items-center">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full Stack Development -->
+    <div class="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105">
+      <div class="flex items-center mb-4" style="color: rgb(16, 15, 15);">
+        <i class="fas fa-code text-blue-600 text-2xl mr-3"></i>
+        <h3 class="text-xl font-semibold">Full Stack Development</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <h4 class="font-medium" style="color: rgb(29, 28, 28);">Finance and Billing System</h4>
+          <span class="inline-block px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">Completed</span>
+          <p class="text-gray-600 mt-2">Full-stack system with 15% improved billing efficiency</p>
+          <button class="mt-3 text-blue-600 hover:text-blue-800 flex items-center">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Network Analysis -->
+    <div class="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105">
+      <div class="flex items-center mb-4">
+        <i class="fas fa-network-wired text-blue-600 text-2xl mr-3"></i>
+        <h3 class="text-xl font-semibold" style="color: rgb(20, 20, 20);">Network and Data Analysis</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <h4 class="font-medium" style="color: rgb(16, 15, 15);">EV Charging Infrastructure</h4>
+          <span class="inline-block px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">Completed</span>
+          <p class="text-gray-600 mt-2">20% reduction in EV travel times through optimization</p>
+          <button class="mt-3 text-blue-600 hover:text-blue-800 flex items-center">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Python Projects -->
+    <div class="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105">
+      <div class="flex items-center mb-4">
+        <i class="fab fa-python text-blue-600 text-2xl mr-3"></i>
+        <h3 class="text-xl font-semibold" style="color: rgb(11, 11, 11);">Python and Data Science</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <h4 class="font-medium" style="color: rgb(29, 27, 27);">Stack Overflow Tag Prediction</h4>
+          <span class="inline-block px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">Completed</span>
+          <p class="text-gray-600 mt-2">95% accuracy in predicting post scores</p>
+          <button class="mt-3 text-blue-600 hover:text-blue-800 flex items-center">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Analytics -->
+    <div class="bg-white rounded-lg shadow-lg p-6 transition-transform hover:scale-105">
+      <div class="flex items-center mb-4" style="color: rgb(13, 13, 13);">
+        <i class="fas fa-chart-line text-blue-600 text-2xl mr-3"></i>
+        <h3 class="text-xl font-semibold">Data Analytics</h3>
+      </div>
+      <div class="space-y-4">
+        <div class="border-l-4 border-blue-600 pl-4">
+          <h4 class="font-medium" style="color: rgb(25, 24, 24);">Soccer Data Analytics</h4>
+          <span class="inline-block px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full">Completed</span>
+          <p class="text-gray-600 mt-2">25% improvement in outcome predictions</p>
+          <button class="mt-3 text-blue-600 hover:text-blue-800 flex items-center">
+            Learn More <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-16 text-center">
+    <div class="flex justify-center space-x-6 mb-8">
+      <a href="#" class="text-gray-600 hover:text-blue-600">
+        <i class="fab fa-github text-2xl"></i>
+      </a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">
+        <i class="fab fa-linkedin text-2xl"></i>
+      </a>
+      <a href="#" class="text-gray-600 hover:text-blue-600">
+        <i class="fas fa-envelope text-2xl"></i>
+      </a>
+    </div>
+    <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+      Download Resume
+    </button>
+  </footer>
+</div>
+
+      <!-- Filter Buttons -->
+      
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="el-m6kpxbpx">
+        <!-- Project 1 -->
+        <div class="project-card animate__animated animate__fadeInUp" data-category="machine-learning" id="el-axbiys0z">
+          <div class="bg-neutral-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-neutral-700" id="el-rd1qhjs8">
+            
+            
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card animate__animated animate__fadeInUp" data-category="data-visualization" id="el-cq0kkkqe">
+          <div class="bg-neutral-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-neutral-700" id="el-e4ntunhq">
+            
+            
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card animate__animated animate__fadeInUp" data-category="research" id="el-e3ysspaz">
+          <div class="bg-neutral-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-neutral-700" id="el-sitl4bia">
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Project filtering functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active', 'bg-blue-500'));
+            filterBtns.forEach(b => b.classList.add('bg-neutral-800'));
+            
+            // Add active class to clicked button
+            btn.classList.add('active', 'bg-blue-500');
+            btn.classList.remove('bg-neutral-800');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            projectCards.forEach(card => {
+              if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                card.style.display = 'block';
+                card.classList.add('animate__fadeInUp');
+              } else {
+                card.style.display = 'none';
+                card.classList.remove('animate__fadeInUp');
+              }
+            });
+          });
+        });
+      });
+    </script>
+  </section>
+</div>
+</htmlcode>
+              
+              </element><element id="fccbcc9d-01d6-48f0-80e4-a31235419b15" data-section-id="fccbcc9d-01d6-48f0-80e4-a31235419b15">
+
+
+                <htmlcode id="el-7mgqfacr">
+<div id="root">
+  <section id="skills" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="skills-container max-w-7xl mx-auto px-4 py-16">
+            <!-- Header Section -->
+            <h2 class="text-4xl font-bold text-center mb-16 animate__animated animate__fadeInUp">
+                My <span class="text-blue-500">Skills</span>
+            </h2>
+
+            <!-- Skills Categories Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Programming Skills -->
+                <div class="skill-category bg-gray-50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                        <i class="fas fa-code mr-3"></i>Programming
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fab fa-python text-yellow-500 mr-2"></i>
+                            <span>Python (NumPy, Pandas, Scikit-learn)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-database text-blue-500 mr-2"></i>
+                            <span>SQL, MongoDB, PostgreSQL</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-aws text-orange-500 mr-2"></i>
+                            <span>AWS Services</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-java text-red-500 mr-2"></i>
+                            <span>Java, C++</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-js text-yellow-400 mr-2"></i>
+                            <span>JavaScript, HTML5, CSS</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Visualization Skills -->
+                <div class="skill-category bg-gray-50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                        <i class="fas fa-chart-bar mr-3"></i>Visualization
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+                            <span>Tableau</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-project-diagram text-purple-500 mr-2"></i>
+                            <span>D3.js</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chart-pie text-green-500 mr-2"></i>
+                            <span>PowerBI</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-palette text-indigo-500 mr-2"></i>
+                            <span>Matplotlib, Seaborn</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Machine Learning Skills -->
+                <div class="skill-category bg-gray-50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-purple-600 mb-4 flex items-center">
+                        <i class="fas fa-brain mr-3"></i>Machine Learning
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-robot text-purple-500 mr-2"></i>
+                            <span>Neural Networks</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-tree text-green-500 mr-2"></i>
+                            <span>Decision Trees &amp; Random Forests</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-language text-blue-500 mr-2"></i>
+                            <span>Natural Language Processing (NLP)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-network-wired text-red-500 mr-2"></i>
+                            <span>Ensemble Methods</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Statistical Methods -->
+                <div class="skill-category bg-gray-50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                        <i class="fas fa-square-root-alt mr-3"></i>Statistical Methods
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+                            <span>Regression Analysis</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-percentage text-green-500 mr-2"></i>
+                            <span>Hypothesis Testing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chart-area text-purple-500 mr-2"></i>
+                            <span>Forecasting</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-compress-arrows-alt text-orange-500 mr-2"></i>
+                            <span>Dimensionality Reduction</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Big Data Technologies -->
+                <div class="skill-category bg-gray-50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-yellow-600 mb-4 flex items-center">
+                        <i class="fas fa-database mr-3"></i>Big Data Technologies
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fab fa-hadoop text-yellow-500 mr-2"></i>
+                            <span>Apache Hadoop</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-stream text-red-500 mr-2"></i>
+                            <span>Apache Kafka</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-warehouse text-blue-500 mr-2"></i>
+                            <span>Data Warehousing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-exchange-alt text-green-500 mr-2"></i>
+                            <span>ETL Processes</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Miscellaneous Skills -->
+                <div class="skill-category bg-gray-50 rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4 flex items-center">
+                        <i class="fas fa-tools mr-3"></i>Miscellaneous Skills
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-paint-brush text-pink-500 mr-2"></i>
+                            <span>Illustrator, Photoshop</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fab fa-git-alt text-orange-500 mr-2"></i>
+                            <span>GIT, Agile, Jira</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="far fa-file-excel text-green-500 mr-2"></i>
+                            <span>MS Office Suite</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-users-cog text-blue-500 mr-2"></i>
+                            <span>Business Process Analysis</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.skill-category').forEach(category => {
+            observer.observe(category);
+        });
+    </script>
+</section>
+</div>
+</htmlcode>
+              </element><element id="85865935-690c-4499-81f3-ba28b75ef0c3" data-section-id="85865935-690c-4499-81f3-ba28b75ef0c3">
+
+<htmlCode>
+<div id="root">
+  <section id="contact" class="py-20 bg-neutral-900 text-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold text-center mb-16 animate__animated animate__fadeInUp">
+        Get In <span class="text-blue-400">Touch</span>
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <!-- Contact Info -->
+        <div class="space-y-8 animate__animated animate__fadeInLeft">
+          <div class="bg-neutral-800 p-8 rounded-xl border border-neutral-700">
+            <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-medium text-gray-200">Email</h4>
+                  <p class="text-blue-400">ayush.shah@umich.edu</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-medium text-gray-200">Location</h4>
+                  <p class="text-gray-400">Ann Arbor, Michigan</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex space-x-4 mt-8">
+              <a href="#" class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/40 transition-colors">
+                <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              </a>
+              <a href="#" class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center hover:bg-blue-500/40 transition-colors">
+                <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="animate__animated animate__fadeInRight">
+          <form class="space-y-6" id="contactForm">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
+              <input type="text" id="name" name="name" class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
+              <input type="email" id="email" name="email" class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+            </div>
+
+            <div>
+              <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+              <input type="text" id="subject" name="subject" class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+              <textarea id="message" name="message" rows="4" class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-colors">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add form submission logic here
+        alert('Thank you for your message! I will get back to you soon.');
+        this.reset();
+      });
+    </script>
+  </section>
+</div>
+</htmlCode></element><element id="996b88d3-6885-42fe-998c-06643c51ca32" data-section-id="996b88d3-6885-42fe-998c-06643c51ca32">
+
+<htmlCode>
+<div id="root">
+  <footer id="footer" class="bg-neutral-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-neutral-700">
+        <!-- About Column -->
+        <div class="animate__animated animate__fadeInUp">
+          <h3 class="text-2xl font-bold mb-4">Ayush Shah</h3>
+          <p class="text-gray-400 mb-4">Data Science Student at University of Michigan, passionate about machine learning and data analytics.</p>
+          <a href="#" class="inline-block bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+            Download Resume
+          </a>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="animate__animated animate__fadeInUp">
+          <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li>
+              <a href="#about" class="text-gray-400 hover:text-blue-400 transition-colors">About</a>
+            </li>
+            <li>
+              <a href="#projects" class="text-gray-400 hover:text-blue-400 transition-colors">Projects</a>
+            </li>
+            <li>
+              <a href="#skills" class="text-gray-400 hover:text-blue-400 transition-colors">Skills</a>
+            </li>
+            <li>
+              <a href="#contact" class="text-gray-400 hover:text-blue-400 transition-colors">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="animate__animated animate__fadeInUp">
+          <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
+          <div class="space-y-2">
+            <p class="text-gray-400">
+              <span class="inline-block w-5 mr-2">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </span>
+              ayush.shah@umich.edu
+            </p>
+            <p class="text-gray-400">
+              <span class="inline-block w-5 mr-2">
+                <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </span>
+              Ann Arbor, Michigan
+            </p>
+          </div>
+
+          <div class="flex space-x-4 mt-6">
+            <a href="#" class="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center hover:bg-blue-500/20 transition-colors">
+              <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+              </svg>
+            </a>
+            <a href="#" class="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center hover:bg-blue-500/20 transition-colors">
+              <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 text-center">
+        <p class="text-gray-400">© 2024 Ayush Shah. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>
+</htmlCode></element>
+            <div id="page_complete">
+            <script>
+                console.log('Page complete');
+            </script>
+            </body>
+            </html>
+          
