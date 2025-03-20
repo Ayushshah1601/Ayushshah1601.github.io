@@ -12,7 +12,7 @@
       <!-- Performance optimization: Preload critical resources -->
       <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
       <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" as="style">
-      
+    
       <!-- {headerScripts} -->
 
       <!-- Core CSS -->
@@ -426,10 +426,11 @@
 
 <htmlCode>
 <div id="root">
-  <section id="hero" class="min-h-screen bg-neutral-900 text-white pt-20">
-    <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-center h-full gap-12 py-20">
+  <section id="hero" class="min-h-screen bg-neutral-900 text-white flex items-center">
+    <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-center h-full gap-12 py-32">  
       <!-- Left Content -->
-      <div class="lg:w-1/2 space-y-8 animate__animated animate__fadeInLeft">
+      <!-- <div style="padding-top: 50px;"> </div> -->
+      <div class="lg:w-1/2 space-y-8 animate__animated animate__fadeInLeft self-center">
         <h1 class="text-4xl md:text-6xl font-bold leading-tight">
           Hi, I'm <span class="text-blue-400">Ayush Shah</span>
         </h1>
@@ -437,21 +438,27 @@
         <p class="text-lg text-gray-400 leading-relaxed">
           Passionate data science enthusiast currently pursuing my degree at the University of Michigan. I specialize in machine learning, data visualization, and statistical analysis, aiming to leverage data-driven insights to solve real-world problems.
         </p>
-        <div class="flex gap-4">
+        <!-- <div class="flex gap-4">
           <a href="#contact" class="bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-full transition-all duration-300 font-semibold inline-block">
             Contact Me
-          </a>
+          </a> 
           <a href="#" class="border border-blue-400 hover:bg-blue-400/10 px-6 py-3 rounded-full transition-all duration-300 font-semibold inline-block">
             Download Resume
           </a>
-        </div>
+        </div> -->
         <div class="flex gap-6 pt-4">
-          <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+          <!-- Resume Icon -->
+          <a href="https://drive.google.com/file/d/1WMMYNTeopjSF8qKW4jzCLQZekiDoXdHk/view?usp=sharing" class="text-gray-400 hover:text-blue-400 transition-colors">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2H6ZM13 9V3.5L18.5 9H13ZM8 13H16V15H8V13ZM8 17H14V19H8V17ZM8 9H12V11H8V9Z"/>
+            </svg>
+          </a>
+          <a href="https://github.com/Ayushshah2023" class="text-gray-400 hover:text-blue-400 transition-colors">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
             </svg>
           </a>
-          <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+          <a href="https://www.linkedin.com/in/ayushshah1601?miniProfileUrn=urn%3Ali%3Afs_miniProfile%3AACoAAC4v_RkBX6_9umdgmhjEo9Ycc3Jdvq989eU&lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BV7tIiWWmRLGB1LG%2FmYAN%2Fw%3D%3D" class="text-gray-400 hover:text-blue-400 transition-colors">
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
             </svg>
@@ -460,19 +467,23 @@
       </div>
       
       <!-- Right Content - Animated Background -->
-      <div class="lg:w-1/2 flex justify-center items-center relative animate__animated animate__fadeInRight">
+      <img src="Memoji.png" alt="Memoji" style="width: 100%; height: auto; max-width: 300px; display: block; margin: auto; border-radius: 10px;">
+
+      <!-- <div class="lg:w-1/2 flex justify-center items-center relative animate__animated animate__fadeInRight">
         <div class="w-72 h-72 md:w-96 md:h-96 bg-blue-500/20 rounded-full blur-3xl absolute -z-10"></div>
         <div class="w-72 h-72 md:w-96 md:h-96 bg-purple-500/20 rounded-full blur-3xl absolute top-20 left-20 -z-10"></div>
-        <div class="flex items-center justify-center relative z-10 border-neutral-700 h-full">
-          <div class="aspect-square w-64 h-64 md:w-80 md:h-80 rounded-xl bg-neutral-700 flex items-center justify-center p-5">
-            <img 
-              src="Profile_photo.jpeg" 
+        <div class="flex relative z-10 border-neutral-700 h-full">
+          <div class="aspect-square w-64 h-64 md:w-80 md:h-80 rounded-xl flex items-center justify-center p-5"> -->
+            <!-- <img 
+              src="Memoji.png" 
               alt="Profile Photo" 
               class="w-full h-full object-cover rounded-xl"
-            />
-          </div>
+            /> -->
+            <!-- <img src="Memoji.png" alt="Memoji" style="width: 100%; height: auto; max-width: 300px; display: block; margin: auto; border-radius: 10px;"> -->
+
+          <!-- </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </div>
@@ -583,7 +594,7 @@
       <h2 class="text-4xl font-bold text-center mb-16 animate__animated animate__fadeInUp">
         My <span class="text-blue-400">Education</span>
       </h2>
-      <p class="text-center text-xl text-gray-300 mb-16 animate__animated animate__fadeInUp animate__delay-1s">Building a Foundation in Data Science and Technology</p>
+      <!-- <p class="text-center text-xl text-gray-300 mb-16 animate__animated animate__fadeInUp animate__delay-1s">Building a Foundation in Data Science and Technology</p> -->
 
       <div class="max-w-4xl mx-auto">
         <div class="relative">
@@ -662,104 +673,116 @@
                 
                 <htmlcode id="el-8d8mnsfi">
 <div id="root">
-  <section id="experience" class="py-20 bg-white">
-  <!-- Header Section -->
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-gray-900 mb-4">Work Experience</h2>
-      <p class="text-xl text-gray-600">A Journey of Growth, Innovation, and Impact</p>
+  <section id="experience" class="py-20 bg-white relative">
+    <!-- Header Section -->
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Work Experience</h2>
+        <p class="text-xl text-gray-600">A Journey of Growth, Innovation, and Impact</p>
+      </div>
+  
+      <!-- Experience Timeline -->
+      <div class="max-w-4xl mx-auto space-y-12">
+        
+        <!-- Work Experience Tile -->
+        <a href="#" onclick="openFlashcard('dataAnalyst', event)" class="block transition-transform transform hover:scale-105">
+          <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500 cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-2xl font-bold text-gray-800">Data Analyst Intern – Michigan Medicine</h3>
+                <p class="text-gray-600">Ann Arbor, MI | <span class="text-gray-500">May 2024</span></p>
+              </div>
+            </div>
+            <p class="text-gray-700 text-md">Built predictive models to optimize hospital operations.</p>
+            <p class="text-sm text-gray-500 italic mt-2">Click for details</p> <!-- Subtle click instruction -->
+          </div>
+        </a>
+  
+        <a href="#" onclick="openFlashcard('dataFellow', event)" class="block transition-transform transform hover:scale-105">
+          <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500 cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-2xl font-bold text-gray-800">Data Management Fellow – University of Michigan</h3>
+                <p class="text-gray-600">Ann Arbor, MI | <span class="text-gray-500">Sept 2023</span></p>
+              </div>
+            </div>
+            <p class="text-gray-700 text-md">Developed dashboards to analyze trends for 5,000+ students.</p>
+            <p class="text-sm text-gray-500 italic mt-2">Click for details</p> <!-- Subtle click instruction -->
+          </div>
+        </a>
+  
+        <a href="#" onclick="openFlashcard('softwareEngineer', event)" class="block transition-transform transform hover:scale-105">
+          <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500 cursor-pointer">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="text-2xl font-bold text-gray-800">Senior Associate Software Engineer – Telstra</h3>
+                <p class="text-gray-600">Pune, India | <span class="text-gray-500">Jul 2021 – May 2023</span></p>
+              </div>
+            </div>
+            <p class="text-gray-700 text-md">Managed large-scale financial data for compliance.</p>
+            <p class="text-sm text-gray-500 italic mt-2">Click for details</p> <!-- Subtle click instruction -->
+          </div>
+        </a>
+  
+      </div>
     </div>
-
-    <!-- Experience Timeline -->
-    <div class="max-w-4xl mx-auto">
-      <!-- Graduate Research Assistant -->
-      <div class="mb-12 relative">
-        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-2xl font-bold text-gray-800">Graduate Research Assistant</h3>
-              <p class="text-gray-600">Ann Arbor, MI | Prof. Elle O'Brien</p>
-            </div>
-            <span class="text-gray-500">Sept 2024</span>
-          </div>
-          <ul class="list-disc ml-6 text-gray-700">
-            <li class="mb-2">Developed a programmatic data collection pipeline for efficient keyword-based academic publication retrieval.</li>
-            <li class="mb-2">Delivered clean and effective Python code, showcasing advanced programming and project management skills.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Instructional Aide -->
-      <div class="mb-12">
-        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-green-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-2xl font-bold text-gray-800">Instructional Aide and Peer Tutor</h3>
-              <p class="text-gray-600">Ann Arbor, MI | SI 618 - Data Manipulation</p>
-            </div>
-            <span class="text-gray-500">Sept 2024</span>
-          </div>
-          <ul class="list-disc ml-6 text-gray-700">
-            <li class="mb-2">Led lab sessions and one-on-one tutoring for 50+ students, improving course performance by 15%.</li>
-            <li class="mb-2">Graded 100+ assignments per semester, enhancing problem-solving efficiency by 25%.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Data Analyst Intern -->
-      <div class="mb-12">
-        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-purple-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-2xl font-bold text-gray-800">Data Analyst Intern – Michigan Medicine</h3>
-              <p class="text-gray-600">Ann Arbor, MI</p>
-            </div>
-            <span class="text-gray-500">May 2024</span>
-          </div>
-          <ul class="list-disc ml-6 text-gray-700">
-            <li class="mb-2">Developed predictive models for primary care and ER operations, optimizing resources and reducing wait times by 15%.</li>
-            <li class="mb-2">Conducted feasibility studies for a dermatology department acquisition, analyzing staffing and financial metrics.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Data Management Fellow -->
-      <div class="mb-12">
-        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-yellow-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-2xl font-bold text-gray-800">Data Management Fellow – University of Michigan</h3>
-              <p class="text-gray-600">Ann Arbor, MI</p>
-            </div>
-            <span class="text-gray-500">Sept 2023</span>
-          </div>
-          <ul class="list-disc ml-6 text-gray-700">
-            <li class="mb-2">Created 20+ customized dashboards for analyzing trends across 5,000+ students.</li>
-            <li class="mb-2">Improved Salesforce information flow diagrams, enhancing operational efficiency by 20%.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Senior Associate Software Engineer -->
-      <div class="mb-12">
-        <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-red-500">
-          <div class="flex justify-between items-start mb-4">
-            <div>
-              <h3 class="text-2xl font-bold text-gray-800">Senior Associate Software Engineer – Telstra</h3>
-              <p class="text-gray-600">Pune, India</p>
-            </div>
-            <span class="text-gray-500">Jul 2021 – May 2023</span>
-          </div>
-          <ul class="list-disc ml-6 text-gray-700">
-            <li class="mb-2">Managed 111 million records for IFRS compliance using advanced tools, processing data in 1.5 hours.</li>
-            <li class="mb-2">Led customer behavior data analysis, driving a 25% increase in retention and loyalty.</li>
-            <li class="mb-2">Optimized APIs, reducing invoice retrieval and bill generation time by 25%.</li>
-          </ul>
-        </div>
-      </div>
+  </section>
+  
+  <!-- 🔹 Flashcard Modal (Now Added) -->
+  <div id="flashcardOverlay" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+    <div id="flashcard" class="bg-white p-10 rounded-lg shadow-xl max-w-2xl w-full relative transform scale-90 opacity-0 transition-all duration-300">
+      <button onclick="closeFlashcard()" class="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-2xl font-bold">&times;</button>
+      <h3 id="flashcardTitle" class="text-3xl font-bold text-gray-900"></h3>
+      <p id="flashcardDetails" class="text-lg text-gray-700 mt-4 leading-relaxed"></p>
     </div>
   </div>
-</section>
+  
+  <script>
+    const flashcardData = {
+      dataAnalyst: {
+        title: "Data Analyst Intern – Michigan Medicine",
+        details: "Developed predictive models for primary care and ER operations, optimizing resources and reducing wait times by 15%. Conducted feasibility studies for a dermatology department acquisition, analyzing staffing and financial metrics."
+      },
+      dataFellow: {
+        title: "Data Management Fellow – University of Michigan",
+        details: "Created 20+ customized dashboards for analyzing trends across 5,000+ students. Improved Salesforce information flow diagrams, enhancing operational efficiency by 20%."
+      },
+      softwareEngineer: {
+        title: "Senior Associate Software Engineer – Telstra",
+        details: "Managed 111 million records for IFRS compliance using advanced tools, processing data in 1.5 hours. Led customer behavior data analysis, driving a 25% increase in retention and loyalty."
+      }
+    };
+  
+    function openFlashcard(role, event) {
+      event.preventDefault(); // Prevents page jump
+  
+      // Disable scrolling
+      document.body.style.overflow = 'hidden';
+  
+      // Update flashcard content
+      document.getElementById("flashcardTitle").innerText = flashcardData[role].title;
+      document.getElementById("flashcardDetails").innerText = flashcardData[role].details;
+  
+      // Show modal and animate
+      document.getElementById("flashcardOverlay").classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("flashcard").classList.add("scale-100", "opacity-100");
+      }, 100);
+    }
+  
+    function closeFlashcard() {
+      // Enable scrolling
+      document.body.style.overflow = 'auto';
+  
+      // Hide flashcard animation
+      document.getElementById("flashcard").classList.remove("scale-100", "opacity-100");
+      setTimeout(() => {
+        document.getElementById("flashcardOverlay").classList.add("hidden");
+      }, 300);
+    }
+  </script>
+  
+  
 </div>
 </htmlcode>
               
@@ -1193,7 +1216,7 @@
                 </div>
                 <div>
                   <h4 class="text-lg font-medium text-gray-200">Email</h4>
-                  <p class="text-blue-400">ayush.shah@umich.edu</p>
+                  <p class="text-blue-400">shahayu@umich.edu</p>
                 </div>
               </div>
 
@@ -1312,7 +1335,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
               </span>
-              ayush.shah@umich.edu
+              shahayu@umich.edu
             </p>
             <p class="text-gray-400">
               <span class="inline-block w-5 mr-2">
