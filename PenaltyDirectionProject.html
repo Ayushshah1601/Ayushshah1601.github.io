@@ -1,0 +1,174 @@
+<!-- <!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penalty Direction Prediction Model</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-neutral-900 text-white">
+    <nav class="fixed w-full bg-neutral-800 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold">Ayush Shah</a>
+            <a href="index.html#projects" class="hover:text-blue-400">Back to Projects</a>
+        </div>
+    </nav>
+
+    <section class="pt-20 pb-16 px-6 lg:px-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl font-bold text-blue-400">Penalty Direction Prediction Model</h1>
+            <p class="mt-4 text-gray-300 text-lg">Machine learning model with 10% accuracy improvement using VAEP metrics</p>
+        </div>
+    </section>
+
+    <section class="container mx-auto px-6 lg:px-20 pb-16">
+        <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-blue-400">Project Overview</h2>
+            <p class="text-gray-300 mt-4">This project aims to enhance goalkeeper decision-making during penalty kicks using machine learning techniques. Leveraging VAEP metrics and player behavioral patterns, the model predicts the direction in which a penalty will be taken.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            <div class="bg-neutral-800 p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-blue-400">Key Features</h3>
+                <ul class="mt-4 text-gray-300 space-y-2">
+                    <li><i class="fas fa-check-circle text-green-400 mr-2"></i>Analyzes shooter’s past penalties</li>
+                    <li><i class="fas fa-check-circle text-green-400 mr-2"></i>Uses VAEP metrics for deeper insights</li>
+                    <li><i class="fas fa-check-circle text-green-400 mr-2"></i>Real-time prediction for goalkeepers</li>
+                    <li><i class="fas fa-check-circle text-green-400 mr-2"></i>10% accuracy improvement over baselines</li>
+                </ul>
+            </div>
+
+            <div class="bg-neutral-800 p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold text-blue-400">Technology Stack</h3>
+                <ul class="mt-4 text-gray-300 space-y-2">
+                    <li><i class="fas fa-cogs text-yellow-400 mr-2"></i>Python (Scikit-learn, TensorFlow)</li>
+                    <li><i class="fas fa-database text-yellow-400 mr-2"></i>Pandas, NumPy</li>
+                    <li><i class="fas fa-brain text-yellow-400 mr-2"></i>Neural Networks & Random Forests</li>
+                    <li><i class="fas fa-chart-line text-yellow-400 mr-2"></i>VAEP Metrics Analysis</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-neutral-800 text-white py-6 text-center">
+        <p class="text-gray-400">&copy; 2025 Ayush Shah | All Rights Reserved</p>
+    </footer>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sports Analytics Projects | Ayush Shah</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body class="bg-neutral-900 text-white">
+  <!-- Navbar -->
+  <nav class="fixed w-full bg-neutral-800 py-4 shadow-lg z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold">Ayush Shah</a>
+      <a href="index.html#projects" class="hover:text-blue-400">Back to Projects</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-12 px-6 lg:px-20 text-center">
+    <h1 class="text-4xl font-bold text-blue-400">Sports Analytics Portfolio</h1>
+    <p class="mt-4 text-gray-300 text-lg max-w-3xl mx-auto">My journey into sports analytics began in 2014 during the FIFA World Cup. I was captivated by Jordan Pickford's data sheet showing opponent shooting tendencies. That moment sparked a fascination with how data could offer a strategic edge in sport—and I’ve been hooked ever since.</p>
+  </section>
+
+  <!-- Penalty Prediction System -->
+  <section class="container mx-auto px-6 lg:px-20 pb-16 space-y-12">
+    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
+      <h2 class="text-3xl font-semibold text-blue-400">🎯 Penalty Kick Direction Prediction</h2>
+      
+      <div>
+        <h3 class="text-xl font-semibold text-blue-400 mt-6">Overview</h3>
+        <p class="text-gray-300 mt-3">This capstone project explores the use of pose estimation and sequential deep learning to predict penalty kick direction. The model classifies kicks as left, center, or right, based solely on pre-kick body movement. With over 500 real-world penalty clips processed and analyzed, this system aims to provide goalkeepers with an edge through predictive motion cues.</p>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-blue-400 mt-6">Methodology</h3>
+        <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-3">
+          <li>Collected 560 penalty clips (2015–2024), segmented to 3–5 seconds before the kick.</li>
+          <li>Used Roboflow to label the kicker and train a YOLOv8 detection model.</li>
+          <li>Applied YOLOv8 pose estimation to extract 17 keypoints across 30 frames per clip.</li>
+          <li>Trained a Long Short-Term Memory (LSTM) neural network on sequences of 34 keypoint values to classify direction.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-blue-400 mt-6">Technology Stack</h3>
+        <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-3">
+          <li><strong>Python:</strong> Data processing, modeling, and visualization</li>
+          <li><strong>YOLOv8:</strong> Custom object detection and pose estimation</li>
+          <li><strong>TensorFlow/Keras:</strong> LSTM model for sequential prediction</li>
+          <li><strong>Adobe Premiere Pro:</strong> Manual segmentation of video clips</li>
+          <li><strong>Roboflow:</strong> Frame annotation and model training interface</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-xl font-semibold text-blue-400 mt-6">Highlights</h3>
+        <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-3">
+          <li>Model accuracy reached 41.5%, outperforming published academic baselines.</li>
+          <li>Identified key joints (hip, ankle, wrist) most predictive of direction.</li>
+          <li>Built interpretable decision tree to trace model logic from keypoints.</li>
+          <li>Designed a pipeline suitable for real-time goalkeeper feedback in training.</li>
+        </ul>
+      </div>
+
+      <div class="text-center mt-6">
+        <a href="https://drive.google.com/file/d/1EaRya-XBiswLYHviQ6ilnkygjmeLEQhK/view?usp=sharing" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all">
+          View Full Report <i class="fas fa-file-alt ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Projects -->
+  <section class="container mx-auto px-6 lg:px-20 pb-20 space-y-12">
+    <!-- Match Outcome Prediction -->
+    <div class="bg-neutral-800 p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold text-blue-400">📊 Predicting Soccer Match Outcomes</h3>
+      <p class="text-gray-300 mt-3">Used SPI, expected goals, and game importance metrics from FiveThirtyEight to predict match outcomes across leagues. Models include Random Forests, Decision Trees, and time-series models like Prophet and LSTM.</p>
+      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
+        <li>89.5% accuracy on away score prediction using Random Forest</li>
+        <li>Compared SPI effectiveness across men’s and women’s leagues</li>
+        <li>LSTM outperformed Prophet in SPI forecasting for team performance</li>
+      </ul>
+      <div class="text-center mt-4">
+        <a href="https://drive.google.com/file/d/1uqY6lK7fc3uLxjD0h3_PnHQXr8EommcI/view?usp=drive_link" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition-all">
+          View Report <i class="fas fa-file-alt ml-2"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Net Gains Project -->
+    <div class="bg-neutral-800 p-6 rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold text-blue-400">📈 Net Gains: Soccer Data Insights</h3>
+      <p class="text-gray-300 mt-3">Explored offensive/defensive ratings, SPI-based outcomes, and league competitiveness using swarm plots and score classification models. Compared classifier performance across men’s and women’s leagues.</p>
+      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
+        <li>Visualized SPI and team strength with swarm and joint plots</li>
+        <li>91.2% score prediction accuracy in women’s league using Random Forest</li>
+        <li>Highlighted away game dependence on match importance</li>
+      </ul>
+      <div class="text-center mt-4">
+        <a href="https://docs.google.com/presentation/d/1pChWJUwkORAKSE-jFSXu3QGXFnvHFupx/edit?usp=drive_link&ouid=117107463460876276576&rtpof=true&sd=true" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-lg transition-all">
+          View Slides <i class="fas fa-file-powerpoint ml-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-800 text-white py-6 text-center">
+    <p class="text-gray-400">&copy; 2025 Ayush Shah | All Rights Reserved</p>
+  </footer>
+</body>
+</html>
+

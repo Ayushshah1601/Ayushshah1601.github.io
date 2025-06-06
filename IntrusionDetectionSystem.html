@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCADA Intrusion Detection System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body class="bg-neutral-900 text-white">
+  <nav class="fixed w-full bg-neutral-800 text-white py-4 shadow-lg z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <a href="index.html" class="text-xl font-bold">Ayush Shah</a>
+      <a href="index.html#projects" class="hover:text-blue-400">Back to Projects</a>
+    </div>
+  </nav>
+
+  <section class="pt-20 pb-10 px-6 lg:px-20">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl font-bold text-blue-400">Intrusion Detection System for SCADA</h1>
+      <p class="mt-4 text-gray-300 text-lg">Forensics and Machine Learning in Cybersecurity</p>
+    </div>
+  </section>
+
+  <section class="container mx-auto px-6 lg:px-20 pb-16 space-y-12">
+    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-blue-400">Overview</h2>
+      <p class="text-gray-300 mt-4">SCADA systems (Supervisory Control and Data Acquisition) are the backbone of industrial infrastructure, including utilities like power grids, water treatment, and manufacturing lines. As these systems grow increasingly connected to corporate networks and the internet, their susceptibility to cyberattacks also rises.</p>
+      <p class="text-gray-300 mt-4">Our final-year project aimed to develop a comprehensive intrusion detection pipeline combining digital forensics with supervised machine learning. The system successfully detected anomalies from both network and memory data, allowing for real-time or post-incident forensic analysis.</p>
+    </div>
+
+    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-blue-400">Methodology</h2>
+      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
+        <li>Simulated attacks (DoS, ARP spoofing, malware injection) on a virtualized SCADA environment.</li>
+        <li>Collected PCAP data and memory dumps during both idle and attack scenarios for ground truth comparison.</li>
+        <li>Used FTK Imager and Volatility to extract registry keys, active connections, DLLs, processes, and kernel hooks.</li>
+        <li>Mapped extracted features to training datasets and applied various classifiers for anomaly detection.</li>
+        <li>Evaluated models using accuracy, precision, recall, F1-score, and confusion matrices.</li>
+      </ul>
+    </div>
+
+    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-blue-400">Key Technologies</h2>
+      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
+        <li><strong>Wireshark, Tshark:</strong> Packet capture and network anomaly detection</li>
+        <li><strong>FTK Imager:</strong> Forensic-grade memory acquisition tool</li>
+        <li><strong>Volatility Framework:</strong> Memory analysis and malware signature extraction</li>
+        <li><strong>Scikit-learn (Python):</strong> Implemented ML algorithms with cross-validation</li>
+        <li><strong>Jupyter Notebooks:</strong> Exploratory data analysis and visualization</li>
+      </ul>
+    </div>
+
+    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold text-blue-400">Highlights</h2>
+      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
+        <li>Simulated and recorded attacks on a water treatment control system to test the pipeline.</li>
+        <li>Identified suspicious command executions (e.g., netstat, taskkill) in memory dumps.</li>
+        <li>Detected ARP spoofing by analyzing MAC-to-IP inconsistencies in PCAP logs.</li>
+        <li>Integrated forensic logs into a unified CSV file for model ingestion.</li>
+        <li>Achieved malware classification accuracy of <strong>99.98%</strong> using KNN with memory-based features.</li>
+      </ul>
+    </div>
+
+    <div class="text-center">
+      <a href="https://drive.google.com/file/d/1pVytRq5AixZaQGhDYiFCmsYbL2cj7_BP/view?usp=drive_link" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all">
+        View Full Report <i class="fas fa-file-alt ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <footer class="bg-neutral-800 text-white py-6 text-center">
+    <p class="text-gray-400">&copy; 2025 Ayush Shah | All Rights Reserved</p>
+  </footer>
+</body>
+</html>
