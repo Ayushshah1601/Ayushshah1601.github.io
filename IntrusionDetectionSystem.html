@@ -1,92 +1,567 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SCADA Intrusion Detection System</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SCADA Intrusion Detection System | Ayush Shah</title>
+  <meta name="color-scheme" content="dark light" />
+  <meta name="description" content="Intrusion detection pipeline for SCADA environments combining digital forensics and supervised ML across PCAP and memory artifacts." />
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "toewe176tf");
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter','system-ui','ui-sans-serif','Segoe UI','Roboto','Arial'],
+            display: ['Space Grotesk','Inter','ui-sans-serif']
+          },
+          colors: {
+            base: { 50:'#f9fafb',100:'#f3f4f6',900:'#0b0d12' },
+            brand:{ 100:'#e0e7ff',300:'#a5b4fc',500:'#6366f1',600:'#5457ee',700:'#4f46e5' },
+            accent:{ 500:'#22d3ee',600:'#06b6d4' }
+          },
+          boxShadow: {
+            soft: '0 10px 40px -12px rgba(0,0,0,.35)',
+            glow: '0 0 0 3px rgba(34, 211, 238, .25)'
+          },
+          backdropBlur: { 12: '12px' }
+        }
+      }
+    }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+  <style>
+    :root{
+      --ac1:#41e2ff; --ac2:#9b8cff; --ac3:#00ffa8; --ac4:#ff7ca3;
+      --text-soft:#cfd6e6;
+    }
+    body{
+      background:
+        radial-gradient(1200px 600px at 60% -10%, color-mix(in srgb, var(--ac2) 18%, transparent), transparent),
+        radial-gradient(1000px 500px at 10% 10%, color-mix(in srgb, var(--ac1) 15%, transparent), transparent),
+        linear-gradient(180deg, #090a0f 0%, #0b0e14 50%, #0a0d12 100%);
+      color:#fff;
+    }
+    .progress{
+      position:fixed;top:0;left:0;height:3px;width:0;z-index:70;
+      background:linear-gradient(90deg,var(--ac1),var(--ac3));
+      box-shadow:0 0 12px color-mix(in srgb,var(--ac3) 60%,transparent)
+    }
+    .aurora{
+      pointer-events:none;position:absolute;inset:-10% -20% auto -20%;
+      height:48vh;filter:blur(18px) saturate(120%);
+      background:
+        radial-gradient(600px 220px at 15% 70%, color-mix(in srgb, var(--ac1) 22%, transparent), transparent),
+        radial-gradient(540px 220px at 45% 35%, color-mix(in srgb, var(--ac2) 18%, transparent), transparent),
+        radial-gradient(520px 240px at 80% 60%, color-mix(in srgb, var(--ac4) 16%, transparent), transparent);
+      animation: auroraFloat 18s ease-in-out infinite alternate;
+      opacity:.75;mix-blend-mode:screen
+    }
+    @keyframes auroraFloat {0%{transform:translateY(0)}100%{transform:translateY(-18px)}}
+    .blob{
+      position:absolute;filter:blur(40px);opacity:.28;mix-blend-mode:screen;
+      animation:blob 16s ease-in-out infinite
+    }
+    .blob:nth-child(1){
+      width:520px;height:520px;
+      background:radial-gradient(35% 35% at 50% 50%, color-mix(in srgb, var(--ac1) 65%, transparent), transparent);
+      left:-8%;top:-6%
+    }
+    .blob:nth-child(2){
+      width:420px;height:420px;
+      background:radial-gradient(35% 35% at 50% 50%, color-mix(in srgb, var(--ac3) 60%, transparent), transparent);
+      right:-6%;top:32%;animation-delay:-7s
+    }
+    @keyframes blob{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-30px,0)}}
+    .sheen{
+      position:absolute;inset:0;border-radius:inherit;mix-blend-mode:screen;
+      opacity:0;
+      background:linear-gradient(75deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0));
+      background-size:200% 100%;
+      transition:opacity .3s ease,background-position .6s ease
+    }
+    .tilt{
+      transform-style:preserve-3d;perspective:900px;
+      transition:transform .18s ease
+    }
+    .tilt:hover .sheen{opacity:.9;background-position:-100% 0}
+    .spotlight{position:relative;overflow:hidden}
+    .spotlight::after{
+      content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+      background:radial-gradient(closest-side,rgba(255,255,255,.14),rgba(255,255,255,0));
+      filter:blur(10px);transform:translate(-50%,-50%);
+      left:var(--sx,-9999px);top:var(--sy,-9999px);
+      pointer-events:none;opacity:0;transition:opacity .2s ease
+    }
+    .spotlight:hover::after{opacity:1}
+    .magnetic{
+      position:relative;transform:translate3d(0,0,0);
+      transition:transform .08s ease;will-change:transform
+    }
+    .dot{
+      width:8px;height:8px;border-radius:9999px;
+      background:#394150;
+      transition:transform .2s ease,background .2s ease
+    }
+    .dot.active{
+      background:var(--ac1);transform:scale(1.25);
+      box-shadow:0 0 0 4px rgba(65,226,255,.1)
+    }
+    .cursor{
+      position:fixed;width:10px;height:10px;border-radius:50%;
+      background:radial-gradient(circle at 30% 30%,var(--ac2),var(--ac1));
+      opacity:.35;filter:blur(1px);transform:translate(-50%,-50%);
+      pointer-events:none;z-index:60
+    }
+    html:not(.dark) body{
+      background:
+        radial-gradient(900px 420px at 70% -10%, rgba(155,140,255,0.14), transparent 60%),
+        radial-gradient(900px 420px at 0% 0%, rgba(65,226,255,0.10), transparent 60%),
+        linear-gradient(180deg, #f7fafc 0%, #eef2f7 50%, #eaf0f6 100%);
+      color:#0f172a;
+    }
+    html:not(.dark) .bg-black\/30{background-color:rgba(0,0,0,.06)!important}
+    html:not(.dark) .bg-noir\/70{background-color:rgba(15,17,23,.06)!important}
+    html:not(.dark) .ring-white\/10{--tw-ring-color:rgba(0,0,0,.08)!important}
+    @media (prefers-reduced-motion:reduce){
+      .aurora,.blob{animation:none!important}
+      .tilt,.magnetic{transition:none!important}
+      .cursor,.spotlight::after{display:none!important}
+    }
+  </style>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G692HC94YG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-G692HC94YG');
-</script>
-<body class="bg-neutral-900 text-white">
-  <nav class="fixed w-full bg-neutral-800 text-white py-4 shadow-lg z-50">
-    <div class="container mx-auto px-4 flex justify-between items-center">
-      <a href="index.html" class="text-xl font-bold">Ayush Shah</a>
-      <a href="index.html#projects" class="hover:text-blue-400">Back to Projects</a>
+<body class="min-h-screen overflow-x-hidden font-sans">
+  <!-- Progress -->
+  <div id="progress" class="progress"></div>
+
+  <!-- Scene background -->
+  <div aria-hidden="true" class="aurora"></div>
+  <div aria-hidden="true" class="blob"></div>
+  <div aria-hidden="true" class="blob"></div>
+
+  <!-- Floating nav dots -->
+  <aside class="fixed right-5 top-1/2 z-50 -translate-y-1/2 hidden md:flex flex-col gap-3">
+    <a href="#top"        class="dot" data-dot="top"        title="Top"></a>
+    <a href="#overview"   class="dot" data-dot="overview"   title="Overview"></a>
+    <a href="#method"     class="dot" data-dot="method"     title="Methodology"></a>
+    <a href="#insights"   class="dot" data-dot="insights"   title="Highlights"></a>
+    <a href="#contact"    class="dot" data-dot="contact"    title="Contact"></a>
+  </aside>
+
+  <!-- Header -->
+  <header id="siteHeader" class="hide-on-scroll fixed inset-x-0 top-0 z-40">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mt-3 rounded-2xl border border-white/20 dark:border-white/10 
+                  bg-white/70 dark:bg-slate-900/60 backdrop-blur-12 shadow-soft">
+        <nav class="flex items-center justify-between px-4 py-3">
+          <!-- Logo -->
+          <a href="index.html#home" class="font-display text-lg tracking-tight">
+            Ayush <span class="text-brand-600">Shah</span>
+          </a>
+  
+          <!-- Primary nav (always points to index sections) -->
+          <ul class="hidden md:flex items-center gap-6 text-sm">
+            <li><a href="index.html#projects"   class="u-underline">Projects</a></li>
+            <li><a href="index.html#experience" class="u-underline">Experience</a></li>
+            <li><a href="index.html#skills"     class="u-underline">Skills</a></li>
+            <li><a href="index.html#education"  class="u-underline">Education</a></li>
+            <li><a href="index.html#about"      class="u-underline">About</a></li>
+          </ul>
+  
+          <!-- Right-side buttons -->
+          <div class="flex items-center gap-2">
+            <!-- Theme toggle -->
+            <button id="themeToggle" aria-label="Toggle theme"
+              class="inline-flex items-center justify-center gap-2 rounded-xl
+                     px-4 py-2 text-sm font-display font-semibold
+                     bg-slate-900/90 dark:bg-slate-800/80 text-white
+                     border border-white/10 hover:bg-slate-800/90 hover:dark:bg-slate-700
+                     shadow-soft transition-all">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                   class="sun stroke-current">
+                <path d="M12 4V2M12 22v-2M4.93 4.93 3.52 3.52M20.48 20.48l-1.41-1.41M22 12h-2M4 12H2M19.07 4.93l1.41-1.41M3.52 20.48l1.41-1.41"
+                      stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="4" stroke-width="1.5"/>
+              </svg>
+              <span>Theme</span>
+            </button>
+  
+            <!-- Let’s talk → always main contact section -->
+            <a href="index.html#contact"
+               class="inline-flex items-center justify-center gap-2 rounded-xl
+                      px-4 py-2 text-sm font-display font-display font-semibold
+                      bg-brand-600 hover:bg-brand-700 text-white shadow-soft
+                      transition-all">
+              Let’s talk
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M5 12h14m0 0-6-6m6 6-6 6"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </div>
+        </nav>
+      </div>
     </div>
-  </nav>
+  </header>
+  
 
-  <section class="pt-20 pb-10 px-6 lg:px-20">
-    <div class="max-w-4xl mx-auto text-center">
-      <h1 class="text-4xl font-bold text-blue-400">Intrusion Detection System for SCADA</h1>
-      <p class="mt-4 text-gray-300 text-lg">Forensics and Machine Learning in Cybersecurity</p>
+  <main id="top" class="pt-24 lg:pt-28 relative z-10">
+    <!-- HERO -->
+    <section class="container mx-auto px-4 lg:px-8">
+      <div class="rounded-3xl border border-white/10 bg-black/30 p-6 lg:p-10 shadow-glow spotlight">
+        <div class="grid gap-10 lg:grid-cols-12">
+          <div class="lg:col-span-7">
+            <h1 class="text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+              SCADA <span style="color:var(--ac1)">Intrusion Detection System</span>
+            </h1>
+            <p class="mt-4 text-lg md:max-w-2xl" style="color:var(--text-soft)">
+              Final-year project: a forensic-driven intrusion detection pipeline for industrial SCADA,
+              combining PCAP and memory artifacts with supervised ML to catch targeted attacks on critical infrastructure.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3">
+              <a href="#overview" class="magnetic inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-sm hover:bg-white/20">
+                <i class="fa-solid fa-shield-halved"></i> Read overview
+              </a>
+              <a href="#insights" class="magnetic inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm hover:bg-white/10">
+                <i class="fa-regular fa-lightbulb"></i> See highlights
+              </a>
+              <a href="https://drive.google.com/file/d/1pVytRq5AixZaQGhDYiFCmsYbL2cj7_BP/view?usp=drive_link"
+                 target="_blank"
+                 class="magnetic inline-flex items-center gap-2 rounded-lg bg-white/10 px-3 py-2 text-sm hover:bg-white/20">
+                <i class="fa-regular fa-file-lines"></i> Full report
+              </a>
+            </div>
+
+            <!-- Chips -->
+            <div class="mt-8 rounded-2xl border border-white/10 bg-noir/70 p-3">
+              <div class="flex flex-wrap gap-2">
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10">SCADA security</span>
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10">Network forensics</span>
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10">Memory forensics</span>
+                <span class="rounded-full bg-white/5 px-3 py-1 text-xs text-white/80 ring-1 ring-white/10">ML-based IDS</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual -->
+          <div class="lg:col-span-5">
+            <div class="tilt relative rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div class="sheen"></div>
+              <div class="aspect-[16/10] overflow-hidden rounded-xl relative">
+                <img src="Wireshark1.png"
+                     alt="SCADA intrusion detection dashboard mockup"
+                     class="h-full w-full object-cover opacity-95"/>
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-lg bg-black/55 px-3 py-1.5 text-xs ring-1 ring-white/10">
+                  <i class="fa-solid fa-wave-square"></i> Alerts from PCAP + memory
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick tiles -->
+        <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="tilt relative rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+            <div class="sheen"></div>
+            <p class="text-xs text-white/60">Domain</p>
+            <p class="mt-1 text-xl font-display font-semibold">Industrial / SCADA</p>
+          </div>
+          <div class="tilt relative rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+            <div class="sheen"></div>
+            <p class="text-xs text-white/60">Signals</p>
+            <p class="mt-1 text-xl font-display font-semibold">PCAP + Memory</p>
+          </div>
+          <div class="tilt relative rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+            <div class="sheen"></div>
+            <p class="text-xs text-white/60">Attacks</p>
+            <p class="mt-1 text-xl font-display font-semibold">DoS, ARP spoof, malware</p>
+          </div>
+          <div class="tilt relative rounded-xl bg-white/5 p-4 ring-1 ring-white/10">
+            <div class="sheen"></div>
+            <p class="text-xs text-white/60">Outcome</p>
+            <p class="mt-1 text-xl font-display font-semibold">High-accuracy IDS</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="container mx-auto px-4 lg:px-8 mt-12">
+      <div class="rounded-3xl border border-white/10 bg-black/30 p-6 lg:p-10">
+        <div class="flex items-center gap-3">
+          <h2 class="text-3xl font-display font-semibold">Overview</h2>
+          <span class="text-sm px-2 py-0.5 rounded bg-white/10 ring-1 ring-white/10">Forensics + ML</span>
+        </div>
+        <p class="mt-4 text-white/80">
+          SCADA environments control power, water, and manufacturing. As they connect to IT networks, their attack
+          surface widens. This project builds an intrusion detection stack that ingests both network traces and memory
+          images, extracts forensic artifacts, and feeds them into supervised ML models to distinguish benign operations
+          from targeted attacks.
+        </p>
+      </div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section id="method" class="container mx-auto px-4 lg:px-8 mt-12">
+      <div class="rounded-3xl border border-white/10 bg-black/30 p-6 lg:p-10">
+        <div class="flex items-center gap-3">
+          <h2 class="text-3xl font-display font-semibold">Methodology</h2>
+          <span class="text-sm px-2 py-0.5 rounded bg-white/10 ring-1 ring-white/10">Scenario → Evidence → Model</span>
+        </div>
+
+        <div class="mt-6 grid gap-8 lg:grid-cols-2">
+          <!-- Pipeline -->
+          <div class="spotlight rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+            <h3 class="text-lg font-display font-semibold">Attack Simulation & Data Capture</h3>
+            <ul class="mt-3 list-disc space-y-2 pl-6" style="color:var(--text-soft)">
+              <li>Virtualized SCADA water treatment setup with HMI, PLC, and engineering workstation.</li>
+              <li>Simulated DoS, ARP spoofing, and malware-style persistence on control nodes.</li>
+              <li>Captured synchronized <strong>PCAP</strong> traces and full memory dumps for idle vs. attack states.</li>
+            </ul>
+          </div>
+
+          <!-- Forensics & ML -->
+          <div class="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+            <h3 class="text-lg font-display font-semibold">Forensic Feature Engineering</h3>
+            <ul class="mt-3 list-disc space-y-2 pl-6" style="color:var(--text-soft)">
+              <li>Used <strong>FTK Imager</strong> for memory acquisition and triage.</li>
+              <li>Applied <strong>Volatility</strong> to extract processes, DLLs, network sockets, kernel hooks.</li>
+              <li>Parsed PCAP with Wireshark/Tshark to flag IP/MAC inconsistencies and anomalous flows.</li>
+              <li>Unified artifacts into a structured feature matrix for supervised classifiers.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Tech tiles -->
+        <h3 class="text-lg font-display font-semibold mt-8">Key Technologies</h3>
+        <div class="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          <div class="rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+            <p class="text-xs text-white/60">Network</p>
+            <p class="text-sm mt-1">Wireshark, Tshark</p>
+          </div>
+          <div class="rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+            <p class="text-xs text-white/60">Forensics</p>
+            <p class="text-sm mt-1">FTK Imager, Volatility</p>
+          </div>
+          <div class="rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+            <p class="text-xs text-white/60">ML</p>
+            <p class="text-sm mt-1">Scikit-learn (KNN, others)</p>
+          </div>
+          <div class="rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+            <p class="text-xs text-white/60">Analysis</p>
+            <p class="text-sm mt-1">Jupyter, visual EDA</p>
+          </div>
+          <div class="rounded-lg bg-white/5 p-3 ring-1 ring-white/10">
+            <p class="text-xs text-white/60">Export</p>
+            <p class="text-sm mt-1">Unified CSV for model ingestion</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS -->
+    <section id="insights" class="container mx-auto px-4 lg:px-8 mt-12">
+      <div class="rounded-3xl border border-white/10 bg-black/30 p-6 lg:p-10">
+        <h2 class="text-3xl font-display font-semibold">Highlights</h2>
+        <p class="mt-2 text-white/70">Detection capability across network and memory layers.</p>
+
+        <div class="mt-6 grid gap-6 md:grid-cols-2">
+          <!-- Detection stories -->
+          <article class="parallax group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-6">
+            <h3 class="text-xl font-display font-semibold">Intrusion Signals</h3>
+            <ul class="mt-3 list-disc pl-6 text-sm text-white/80">
+              <li>Detected ARP spoofing via inconsistent MAC–IP mappings in PCAP logs.</li>
+              <li>Flagged suspicious commands and tooling (e.g. <code>netstat</code>, <code>taskkill</code>) in memory images.</li>
+              <li>Correlated abnormal process trees, DLL injections, and rogue connections with attack timelines.</li>
+              <li>Centralized forensic artifacts into a single dataset for repeatable training and audits.</li>
+            </ul>
+            <div class="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100"
+                 style="background: color-mix(in srgb, var(--ac3) 10%, transparent)"></div>
+          </article>
+
+          <!-- Performance -->
+          <article class="parallax group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-6">
+            <h3 class="text-xl font-display font-semibold">Model Performance</h3>
+            <ul class="mt-3 list-disc pl-6 text-sm text-white/80">
+              <li>Memory-based feature set with KNN achieved <strong>99.98%</strong> malware classification accuracy.</li>
+              <li>Evaluated using accuracy, precision, recall, F1-score, and confusion matrices.</li>
+              <li>Demonstrated the value of combining network traces with deep memory forensics.</li>
+              <li>Pipeline design is extensible to real SCADA logs and SIEM integration.</li>
+            </ul>
+            <div class="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100"
+                 style="background: color-mix(in srgb, var(--ac2) 10%, transparent)"></div>
+          </article>
+        </div>
+
+        <div class="mt-8 text-center">
+          <a href="https://drive.google.com/file/d/1pVytRq5AixZaQGhDYiFCmsYbL2cj7_BP/view?usp=drive_link"
+             target="_blank"
+             class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-5 py-3 text-sm ring-1 ring-white/10 hover:bg-white/20">
+            <i class="fa-regular fa-file-alt"></i> View full report
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container mx-auto px-4 lg:px-8 mt-12 mb-10">
+      <div class="rounded-3xl border border-white/10 bg-black/30 p-6 lg:p-10">
+        <h2 class="text-3xl font-display font-semibold">Say hi</h2>
+        <p class="mt-2 text-white/70">
+          Open to walking through the forensic pipeline, Volatility workflows, and how this IDS design extends to modern OT/ICS setups.
+        </p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a class="magnetic inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/20"
+             href="mailto:ayush@example.com">
+            <i class="fa-regular fa-envelope"></i> Email
+          </a>
+          <a class="magnetic inline-flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2 text-sm hover:bg-white/20"
+             href="https://github.com/ayushshah1601" target="_blank">
+            <i class="fa-brands fa-github"></i> GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-white/10 bg-black/30 py-8">
+    <div class="container mx-auto px-4 lg:px-8 text-center text-sm text-white/60">
+      © 2025 Ayush Shah · SCADA Intrusion Detection System
     </div>
-  </section>
-
-  <section class="container mx-auto px-6 lg:px-20 pb-16 space-y-12">
-    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold text-blue-400">Overview</h2>
-      <p class="text-gray-300 mt-4">SCADA systems (Supervisory Control and Data Acquisition) are the backbone of industrial infrastructure, including utilities like power grids, water treatment, and manufacturing lines. As these systems grow increasingly connected to corporate networks and the internet, their susceptibility to cyberattacks also rises.</p>
-      <p class="text-gray-300 mt-4">Our final-year project aimed to develop a comprehensive intrusion detection pipeline combining digital forensics with supervised machine learning. The system successfully detected anomalies from both network and memory data, allowing for real-time or post-incident forensic analysis.</p>
-    </div>
-
-    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold text-blue-400">Methodology</h2>
-      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
-        <li>Simulated attacks (DoS, ARP spoofing, malware injection) on a virtualized SCADA environment.</li>
-        <li>Collected PCAP data and memory dumps during both idle and attack scenarios for ground truth comparison.</li>
-        <li>Used FTK Imager and Volatility to extract registry keys, active connections, DLLs, processes, and kernel hooks.</li>
-        <li>Mapped extracted features to training datasets and applied various classifiers for anomaly detection.</li>
-        <li>Evaluated models using accuracy, precision, recall, F1-score, and confusion matrices.</li>
-      </ul>
-    </div>
-
-    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold text-blue-400">Key Technologies</h2>
-      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
-        <li><strong>Wireshark, Tshark:</strong> Packet capture and network anomaly detection</li>
-        <li><strong>FTK Imager:</strong> Forensic-grade memory acquisition tool</li>
-        <li><strong>Volatility Framework:</strong> Memory analysis and malware signature extraction</li>
-        <li><strong>Scikit-learn (Python):</strong> Implemented ML algorithms with cross-validation</li>
-        <li><strong>Jupyter Notebooks:</strong> Exploratory data analysis and visualization</li>
-      </ul>
-    </div>
-
-    <div class="bg-neutral-800 p-8 rounded-lg shadow-md">
-      <h2 class="text-2xl font-semibold text-blue-400">Highlights</h2>
-      <ul class="list-disc pl-6 text-gray-300 space-y-2 mt-4">
-        <li>Simulated and recorded attacks on a water treatment control system to test the pipeline.</li>
-        <li>Identified suspicious command executions (e.g., netstat, taskkill) in memory dumps.</li>
-        <li>Detected ARP spoofing by analyzing MAC-to-IP inconsistencies in PCAP logs.</li>
-        <li>Integrated forensic logs into a unified CSV file for model ingestion.</li>
-        <li>Achieved malware classification accuracy of <strong>99.98%</strong> using KNN with memory-based features.</li>
-      </ul>
-    </div>
-
-    <div class="text-center">
-      <a href="https://drive.google.com/file/d/1pVytRq5AixZaQGhDYiFCmsYbL2cj7_BP/view?usp=drive_link" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all">
-        View Full Report <i class="fas fa-file-alt ml-2"></i>
-      </a>
-    </div>
-  </section>
-
-  <footer class="bg-neutral-800 text-white py-6 text-center">
-    <p class="text-gray-400">&copy; 2025 Ayush Shah | All Rights Reserved</p>
   </footer>
+
+  <!-- Cursor bead -->
+  <div id="cursor" class="cursor" aria-hidden="true"></div>
+
+  <script>
+    // Spotlight tracking
+    document.querySelectorAll('.spotlight').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        el.style.setProperty('--sx', (e.clientX - r.left) + 'px');
+        el.style.setProperty('--sy', (e.clientY - r.top) + 'px');
+      });
+    });
+
+    // Tilt cards
+    document.querySelectorAll('.tilt').forEach(card => {
+      let raf;
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left)/r.width - .5;
+        const y = (e.clientY - r.top)/r.height - .5;
+        const rx = (-y*10).toFixed(2), ry = (x*12).toFixed(2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(
+          () => card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg)`
+        );
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(900px) rotateX(0) rotateY(0)';
+      });
+    });
+
+    // Magnetic buttons
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      let raf;
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width/2)) * 0.12;
+        const dy = (e.clientY - (r.top  + r.height/2)) * 0.12;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(
+          () => btn.style.transform = `translate(${dx}px, ${dy}px)`
+        );
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = 'translate(0,0)';
+      });
+    });
+
+    // Parallax cards
+    document.querySelectorAll('.parallax').forEach(el => {
+      let raf;
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX-r.left)/r.width - .5;
+        const y = (e.clientY-r.top)/r.height - .5;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(
+          () => el.style.transform = `translate3d(${x*8}px, ${y*8}px, 0)`
+        );
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'translate3d(0,0,0)';
+      });
+    });
+
+    // Scroll progress + nav dots
+    const progress = document.getElementById('progress');
+    const dots = document.querySelectorAll('.dot');
+    const sections = ['top','overview','method','insights','contact']
+      .map(id => document.getElementById(id) || document.querySelector('#'+id));
+
+    function onScroll() {
+      const s = window.scrollY;
+      const h = document.body.scrollHeight - innerHeight;
+      progress.style.width = Math.min(100, (s/h)*100) + '%';
+
+      let active = 0;
+      sections.forEach((sec, i) => {
+        if (!sec) return;
+        const y = sec.getBoundingClientRect().top;
+        if (y < innerHeight * 0.4) active = i;
+      });
+
+      dots.forEach(d => d.classList.remove('active'));
+      const key = sections[active]?.id || 'top';
+      const dot = document.querySelector(`[data-dot="${key}"]`);
+      if (dot) dot.classList.add('active');
+    }
+    addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+
+    // Cursor bead
+    const bead = document.getElementById('cursor');
+    let cx = 0, cy = 0, tx = 0, ty = 0;
+    const lerp = (a,b,t) => a + (b-a)*t;
+    function loop() {
+      cx = lerp(cx, tx, .18);
+      cy = lerp(cy, ty, .18);
+      bead.style.left = cx + 'px';
+      bead.style.top = cy + 'px';
+      requestAnimationFrame(loop);
+    }
+    addEventListener('mousemove', e => {
+      tx = e.clientX;
+      ty = e.clientY;
+    }, { passive:true });
+    loop();
+
+    // Theme init + toggle
+    (function initTheme(){
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const root = document.documentElement;
+      if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
+      else root.classList.remove('dark');
+    })();
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isDark = root.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      if (meta) meta.setAttribute('content', isDark ? 'dark light' : 'light dark');
+    });
+  </script>
 </body>
 </html>
