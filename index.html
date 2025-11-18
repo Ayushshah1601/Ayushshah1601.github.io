@@ -70,9 +70,112 @@
     .u-underline { background: linear-gradient(currentColor, currentColor) bottom / 0 2px no-repeat; transition: background-size .4s ease; }
     .u-underline:hover { background-size: 100% 2px; }
     /* Card tilt */
-    .tilt { transform-style: preserve-3d; will-change: transform; }
-    .tilt::after { content:""; position:absolute; inset:0; border-radius:1.25rem; background: radial-gradient(600px 200px at var(--mx,50%) var(--my,50%), rgba(99,102,241,.15), transparent 60%); opacity:0; transition: opacity .25s ease; }
-    .tilt:hover::after { opacity:1; }
+    .tilt { 
+      transform-style: preserve-3d; 
+      will-change: transform; 
+    }
+    .tilt::after { 
+      content:""; 
+      position:absolute; 
+      inset:0; 
+      border-radius:1.25rem; 
+      background: radial-gradient(600px 200px at var(--mx,50%) var(--my,50%), rgba(99,102,241,.15), transparent 60%); 
+      opacity:0; 
+      transition: opacity .25s ease; 
+      pointer-events: none;          /* <<< add this */
+    }
+    .tilt:hover::after { 
+      opacity:1; 
+    }
+    .theme-toggle {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      border-radius: 9999px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle__track {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 0 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 40%, #bae6fd 100%);
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+
+    .theme-toggle__icon {
+      font-size: 14px;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .theme-toggle__icon--sun,
+    .theme-toggle__icon--moon {
+      font-size: 16px;
+      text-shadow: 0 0 4px rgba(0,0,0,0.35);
+    }
+
+    .theme-toggle__knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #e5e7eb);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
+      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+      pointer-events: none;
+    }
+
+    /* Dark mode visual state */
+    .theme-toggle.is-dark .theme-toggle__track {
+      background: radial-gradient(circle at 20% 20%, #0f172a, #020617 60%);
+      border-color: rgba(15, 23, 42, 0.9);
+    }
+
+    .theme-toggle.is-dark .theme-toggle__knob {
+      transform: translateX(30px); /* 60 - (3*2) - 24 = 30 */
+    }
+
+    .theme-toggle__icon--sun {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .theme-toggle__icon--moon {
+      opacity: 1;          /* was 0.2 */
+      transform: scale(0.9);
+    }
+
+    /* Dark mode: moon active, sun dimmed */
+    .theme-toggle.is-dark .theme-toggle__icon--sun {
+      opacity: 1;          /* was 0.2 */
+      transform: scale(0.9);
+    }
+
+    .theme-toggle.is-dark .theme-toggle__icon--moon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    /* Light/dark background integration */
+    html:not(.dark) .theme-toggle__track {
+      box-shadow: 0 4px 12px rgba(148, 163, 184, 0.4);
+    }
+    html.dark .theme-toggle__track {
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.8);
+    }
     /* Smooth hide/show of header */
     .hide-on-scroll { transition: transform .45s ease; }
     .hide { transform: translateY(-100%); }
@@ -113,19 +216,18 @@
           <!-- Right-side buttons -->
           <div class="flex items-center gap-2">
             <!-- Theme toggle (same size as Let’s talk) -->
-            <button id="themeToggle" aria-label="Toggle theme"
-              class="inline-flex items-center justify-center gap-2 rounded-xl
-                     px-4 py-2 text-sm font-semibold
-                     bg-slate-900/90 dark:bg-slate-800/80 text-white
-                     border border-white/10 hover:bg-slate-800/90 hover:dark:bg-slate-700
-                     shadow-soft transition-all">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-                   class="sun stroke-current">
-                <path d="M12 4V2M12 22v-2M4.93 4.93 3.52 3.52M20.48 20.48l-1.41-1.41M22 12h-2M4 12H2M19.07 4.93l1.41-1.41M3.52 20.48l1.41-1.41"
-                      stroke-width="1.5" stroke-linecap="round"/>
-                <circle cx="12" cy="12" r="4" stroke-width="1.5"/>
-              </svg>
-              <span>Theme</span>
+            <button
+              id="themeToggle"
+              type="button"
+              class="theme-toggle"
+              aria-label="Toggle theme"
+              aria-pressed="false"
+            >
+              <div class="theme-toggle__track">
+                <span class="theme-toggle__icon theme-toggle__icon--sun">☀️</span>
+                <span class="theme-toggle__icon theme-toggle__icon--moon">🌙</span>
+              </div>
+              <div class="theme-toggle__knob"></div>
             </button>
   
             <!-- Let’s talk -->
@@ -159,7 +261,7 @@
             <h1 class="mt-5 font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
               Building data products that <span class="bg-gradient-to-r from-brand-600 via-accent-600 to-brand-600 bg-clip-text text-transparent">predict, explain, and win</span>
             </h1>
-            <p class="mt-5 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">Machine Learning Engineer specializing in predictive modeling, forecasting, and decision intelligence, turning data into measurable business impact.</p>
+            <p class="mt-5 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">Machine Learning Engineer specializing in predictive<a href="PenaltyDirectionProject.html">test</a> modeling, forecasting, and decision intelligence, turning data into measurable business impact.</p>
             <div class="mt-8 flex flex-wrap gap-3">
               <a href="https://docs.google.com/document/d/14o4V_5ebMJQygpuIBH9Yn9PRZzPdfwl7Wo37IOk2-Lg/edit?usp=sharing" class="group rounded-2xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-5 py-3 text-sm font-semibold shadow-soft hover:shadow-glow inline-flex items-center gap-2" target="_blank">Resume <svg class="transition -rotate-45 group-hover:rotate-0" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></a>
               <a href="#contact" class="rounded-2xl border border-slate-300/60 dark:border-slate-700/80 px-5 py-3 text-sm font-semibold hover:border-brand-500/70 hover:text-brand-600">Work with me</a>
@@ -235,14 +337,14 @@
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="py-14">
+    <section id="projects" class="py-14 bg-transparent">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
+        <div class="text-center mb-6">
           <h2 class="font-display text-3xl sm:text-4xl font-bold">My <span class="text-brand-600">Projects</span></h2>
         </div>
 
         <!-- REPLACE the 4 cards below with your existing main-page projects. Preserve the .tilt class for hover. -->
-        <div class="mt-8 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div class="mt-6 grid md:grid-cols-2 xl:grid-cols-3 gap-6">          
           <!-- Project Card -->
           <article class="group tilt relative overflow-hidden rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-12 shadow-soft reveal p-0 flex flex-col h-full" tabindex="0" aria-label="Penalty Direction Prediction Model">
             <!-- Hero image -->
@@ -448,7 +550,7 @@
               </div>
           
               <div class="mt-5">
-                <a href="HorseRacingRatings.html" class="inline-flex items-center gap-2 text-sm font-semibold u-underline hover:text-brand-600">
+                <a href="HorseRacingPrediction.html" class="inline-flex items-center gap-2 text-sm font-semibold u-underline hover:text-brand-600">
                   Learn more
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -500,20 +602,14 @@
               </div>
             </div>
           </article>
-          
-          
+                 
         </div>
-
       </div>
     </section>
 
     <!-- Experience / About -->
-    <section id="experience" class="relative overflow-hidden py-14 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950">
-      <div class="absolute inset-0 -z-10">
-        <div class="absolute -top-24 left-16 h-72 w-72 rounded-full bg-gradient-to-br from-brand-600/40 to-accent-600/40 blur-3xl"></div>
-        <div class="absolute bottom-0 right-10 h-64 w-64 rounded-full bg-gradient-to-br from-accent-600/40 to-brand-600/40 blur-3xl"></div>
-      </div>
-      <div class="text-center mb-10">
+    <section id="experience" class="relative overflow-hidden pt-10 pb-20 bg-transparent">
+      <div class="text-center mb-6">
         <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white">
           Work <span class="text-brand-600">Experience</span>
         </h2>
@@ -680,7 +776,7 @@
        
     <!-- Skills-->
     <!-- ===================== Skills (Hex Menu) ===================== -->
-    <section id="skills" class="py-20 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950">
+    <section id="skills" class="relative overflow-hidden pt-16 pb-8 bg-transparent">
       <div class="max-w-7xl mx-auto px-6">
         <h2 class="text-center font-display text-4xl font-bold text-slate-900 dark:text-white mb-4">
           My <span class="text-brand-600">Skills</span>
@@ -688,10 +784,10 @@
         
         <div id="hex-stage"
              class="hex-stage relative mb-4 transition-all duration-500">
-          <div class="hex-layout min-h-[560px]">
+          <div class="hex-layout min-h-[460px]">
     
             <!-- HEX CANVAS (starts centered) -->
-            <div id="hex-canvas" class="hex-canvas relative h-[560px] w-[560px] justify-self-start ml-2 sm:ml-4 lg:ml-6">
+            <div id="hex-canvas" class="hex-canvas relative h-[460px] w-[460px] justify-self-start ml-2 sm:ml-4 lg:ml-6">
               <!-- Decorative hex outline -->
               <svg class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" width="340" height="340" viewBox="0 0 340 340" fill="none">
                 <defs>
@@ -872,7 +968,6 @@
           letter-spacing: 0.08em;
           color: rgba(100,116,139,0.7);
           text-shadow: 0 0 8px rgba(255,255,255,0.3);
-          pointer-events: none;
           opacity: 0;
           animation: hintFade 6s ease-in-out infinite;
           backdrop-filter: blur(2px);
@@ -1225,9 +1320,9 @@
     
     <!-- EDUCATION-->
     <!-- ============ EDUCATION (Orbital Showcase) ============ -->
-    <section id="education" class="py-24 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950">
+    <section id="education" class="relative overflow-hidden pt-8 pb-16 bg-transparent">
       <div class="max-w-5xl mx-auto px-6">
-        <h2 class="text-4xl font-display font-bold text-center text-slate-900 dark:text-white mb-16">
+        <h2 class="text-4xl font-display font-bold text-center text-slate-900 dark:text-white mb-10">
           My <span class=" text-brand-600">Education</span>
         </h2>
     
@@ -1325,7 +1420,7 @@
       .tl-spine {
         position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; transform: translateX(-1px);
         background-image: linear-gradient(to bottom, rgba(148,163,184,0), rgba(148,163,184,.28), rgba(148,163,184,0));
-        pointer-events: none;
+
       }
 
       /* three columns per row on md+, single column on mobile */
@@ -1386,289 +1481,311 @@
     </script>
     
     <!-- ===================== ABOUT ===================== -->
-    <section id="about" class="py-24 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-950">
+    <section id="about" class="pt-24 pb-10 bg-transparent">
       <div class="max-w-6xl mx-auto px-6">
-        <h2 class="font-display text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">
+        <h2 class="font-display text-4xl font-bold text-center text-slate-900 dark:text-white mb-8">
           About <span class="text-brand-600">Me</span>
         </h2>
-
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-
-          <!-- Left column -->
-          <div class="lg:col-span-3 space-y-8">
-
-            <!-- Who I Am -->
-            <article class="tilt relative overflow-hidden rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl p-7 shadow-soft hover:shadow-glow transition-all duration-300">
-              <h3 class="text-lg font-display font-semibold text-slate-900 dark:text-white">Who I Am</h3>
-              <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                I am a Data Science graduate from the University of Michigan, Ann Arbor, focused on turning complex data into useful decisions.
-                I work across financial forecasting, sports analytics, NLP, and healthcare, applying machine learning, statistical modeling, and
-                visualization to ship reliable, real-world solutions.
+    
+        <!-- Desktop-like canvas -->
+        <div
+          id="about-desktop"
+          class="relative mt-6 w-full min-h-[600px]"
+        >
+    
+          <!-- Window: Who I Am + Interests -->
+          <div
+            class="about-window md:absolute rounded-2xl border text-slate-900 dark:text-slate-100 bg-white/90 dark:bg-slate-900/95 border-slate-200/80 dark:border-white/15 shadow-soft md:w-[480px]"
+            style="top: 2rem; left: 1.5rem;"
+            data-draggable
+          >
+            <!-- header -->
+            <div
+              class="flex items-center justify-between px-4 py-2 border-b border-slate-200/80 dark:border-white/10 cursor-move bg-slate-100/80 dark:bg-slate-900/90"
+              data-drag-handle
+            >
+              <span class="font-mono text-[11px] text-slate-500 dark:text-slate-300 lowercase tracking-wide">
+                about-me
+              </span>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  class="text-xs text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+                  data-minimize
+                  aria-label="Minimize"
+                >–</button>
+                <button
+                  type="button"
+                  class="text-xs text-slate-400 hover:text-rose-500"
+                  data-close
+                  aria-label="Close"
+                >×</button>
+              </div>
+            </div>
+    
+            <!-- body -->
+            <div class="window-body px-5 pb-5 pt-4 text-sm leading-6">
+              <p class="text-slate-700 dark:text-slate-200">
+                I am a Data Science graduate from the University of Michigan, focused on turning complex data into useful decisions.
+                I work across financial forecasting, sports analytics, NLP, and healthcare, applying machine learning, statistical modeling,
+                and visualization to ship reliable, real-world solutions.
               </p>
-              <h3 class="mt-3 text-lg font-display font-semibold text-slate-900 dark:text-white">Interests</h3>
-              <!-- Quick facts -->
-              <div class="mt-6 flex flex-wrap gap-3 justify-start">
-                <!-- Tag -->
-                <span class="tag-gradient">
+    
+              <h3 class="mt-4 text-xs font-mono uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">interests</h3>
+              <div class="mt-3 flex flex-wrap gap-2">
+                <span class="about-tag bg-cyan-500/10 text-cyan-800 dark:text-cyan-300 border-cyan-400/40">
                   <i class="fas fa-brain mr-1.5 opacity-80"></i> Data Science & ML
                 </span>
-                <span class="tag-neutral">
+                <span class="about-tag bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border-emerald-400/40">
                   <i class="fas fa-chart-line mr-1.5 opacity-80"></i> Forecasting
                 </span>
-                <span class="tag-accent">
+                <span class="about-tag bg-violet-500/10 text-violet-800 dark:text-violet-300 border-violet-400/40">
                   <i class="fas fa-futbol mr-1.5 opacity-80"></i> Sports Analytics
                 </span>
-                <span class="tag-health">
-                  <i class="fas fa-heartbeat mr-1.5 opacity-80"></i> Healthcare
-                </span>
-                <span class="tag-nlp">
+                <span class="about-tag bg-rose-500/10 text-rose-800 dark:text-rose-300 border-rose-400/40">
                   <i class="fas fa-language mr-1.5 opacity-80"></i> NLP
                 </span>
+                <span class="about-tag bg-teal-500/10 text-teal-800 dark:text-teal-300 border-teal-400/40">
+                  <i class="fas fa-heartbeat mr-1.5 opacity-80"></i> Healthcare
+                </span>
               </div>
-              
-              <style>
-                /* === Tag base style === */
-                .tag-gradient, .tag-neutral, .tag-accent, .tag-health, .tag-nlp {
-                  display: inline-flex;
-                  align-items: center;
-                  font-size: 0.78rem;
-                  font-weight: 500;
-                  padding: 0.45rem 0.85rem;
-                  border-radius: 9999px;
-                  letter-spacing: 0.2px;
-                  backdrop-filter: blur(12px);
-                  border: 1px solid rgba(255, 255, 255, 0.15);
-                  transition: all 0.3s ease;
-                  cursor: default;
-                }
-              
-                /* === Individual color variants === */
-                .tag-gradient {
-                  color: #0369a1;
-                  background: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(37,99,235,0.10));
-                  border-color: rgba(56,189,248,0.25);
-                }
-                .tag-neutral {
-                  color: #334155;
-                  background: linear-gradient(135deg, rgba(148,163,184,0.15), rgba(226,232,240,0.08));
-                  border-color: rgba(203,213,225,0.25);
-                }
-                .tag-accent {
-                  color: #6b21a8;
-                  background: linear-gradient(135deg, rgba(192,132,252,0.18), rgba(147,51,234,0.10));
-                  border-color: rgba(192,132,252,0.3);
-                }
-                .tag-health {
-                  color: #059669;
-                  background: linear-gradient(135deg, rgba(16,185,129,0.18), rgba(5,150,105,0.08));
-                  border-color: rgba(16,185,129,0.25);
-                }
-                .tag-nlp {
-                  color: #e11d48;
-                  background: linear-gradient(135deg, rgba(244,114,182,0.18), rgba(244,63,94,0.10));
-                  border-color: rgba(244,114,182,0.25);
-                }
-              
-                /* === Hover glow effect === */
-                .tag-gradient:hover, .tag-neutral:hover, .tag-accent:hover,
-                .tag-health:hover, .tag-nlp:hover {
-                  transform: translateY(-2px) scale(1.04);
-                  box-shadow: 0 4px 15px -2px rgba(0,0,0,0.08), 0 0 16px -6px currentColor;
-                }
-              
-                /* === Dark mode adjustments === */
-                .dark .tag-neutral { color: #e2e8f0; background: rgba(30,41,59,0.6); border-color: rgba(148,163,184,0.25); }
-                .dark .tag-gradient { color: #38bdf8; border-color: rgba(56,189,248,0.25); }
-                .dark .tag-accent { color: #c084fc; border-color: rgba(192,132,252,0.25); }
-                .dark .tag-health { color: #34d399; border-color: rgba(16,185,129,0.25); }
-                .dark .tag-nlp { color: #fb7185; border-color: rgba(244,114,182,0.25); }
-              </style>
-              
-            </article>
-
-            <!-- Career Highlights -->
-            <article class="tilt relative overflow-hidden rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl p-7 shadow-soft hover:shadow-glow transition-all duration-300">
-              <h3 class="font-display text-lg font-semibold text-slate-900 dark:text-white">Career Highlights</h3>
-              <ul class="mt-4 space-y-3 text-sm text-slate-600 dark:text-slate-300">
-                <li class="flex gap-3">
-                  <span class="mt-1 size-2 rounded-full"></span>
-                  🧪   Contributed to research on scientific retractions and clinical workflow modeling at Michigan Medicine.
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 size-2 rounded-full"></span>
-                  🔐   Collaborated with a nuclear power plant to build an Intrusion Detection System for SCADA networks using anomaly detection and ML.
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 size-2 rounded-full"></span>
-                  🏏   Represented my state in U-14 and U-16 cricket tournaments, building discipline and strategic thinking.
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 size-2 rounded-full"></span>
-                  ⛳   Played a round of mini-golf with Arjen Robben... and nearly won.
-                </li>
-                <li class="flex gap-3">
-                  <span class="mt-1 size-2 rounded-full"></span>
-                  🎮   Logged over 1,000 hours on FIFA -  strategy and questionable life choices.
-                </li>
-              </ul>
-            </article>
+            </div>
           </div>
-
-          <!-- Right column -->
-          <div class="lg:col-span-2 space-y-8">
-
-            <!-- Interests -->
-            <article class="tilt relative overflow-hidden rounded-2xl border border-white/20 dark:border-white/10 
-            bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl p-7 shadow-soft 
-            hover:shadow-glow transition-all duration-500">
-              <h3 class="text-lg font-display font-semibold text-slate-900 dark:text-white"> What Drives Me</h3>
-              <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300"> 💸  Funding my future dog’s vet bills </p>
-              <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300"> 🤖  Teaching machines to make fewer mistakes than me  </p>
-              <p class="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300"> 💡  Data, design, and dumb jokes - my daily mix </p>
-            </article>
-
-            <style>
-            /* --- Tile Layout --- */
-            .interest-tile {
-              display: flex;
-              align-items: center;
-              gap: 0.75rem;
-              background: rgba(255, 255, 255, 0.6);
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              border-radius: 0.75rem;
-              padding: 0.65rem 0.9rem;
-              backdrop-filter: blur(10px);
-              transition: all 0.35s ease;
-              cursor: default;
-            }
-            .dark .interest-tile {
-              background: rgba(15, 23, 42, 0.6);
-            }
-
-            /* --- Hover Animation --- */
-            .interest-tile:hover {
-              transform: translateY(-3px);
-              box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.25),
-                          0 0 20px -10px var(--tile-glow, rgba(59,130,246,0.5));
-            }
-
-            /* --- Icon Circle --- */
-            .icon-circle {
-              width: 1.9rem;
-              height: 1.9rem;
-              border-radius: 9999px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              background-image: linear-gradient(to bottom right, var(--from), var(--to));
-              transition: all 0.4s ease;
-              box-shadow: 0 0 10px -4px rgba(0, 0, 0, 0.4);
-            }
-            .icon-circle i {
-              font-size: 0.85rem;
-            }
-
-            /* --- Label --- */
-            .label {
-              font-weight: 500;
-              color: #1e293b;
-              transition: color 0.3s ease;
-            }
-            .dark .label {
-              color: #e2e8f0;
-            }
-
-            /* --- Hover Glow & Color Pop --- */
-            .group:hover .icon-circle {
-              transform: scale(1.15);
-              box-shadow: 0 0 18px -4px currentColor;
-            }
-            .group:hover .label {
-              color: var(--tile-glow, #38bdf8);
-            }
-
-            /* --- Define per-tile glow colors --- */
-            .interest-tile:nth-child(1) { --tile-glow: #38bdf8; }
-            .interest-tile:nth-child(2) { --tile-glow: #10b981; }
-            .interest-tile:nth-child(3) { --tile-glow: #6366f1; }
-            .interest-tile:nth-child(4) { --tile-glow: #d946ef; }
-
-            /* --- Gradient Helper --- */
-            .icon-circle.from-cyan-500.to-blue-500 { --from: #06b6d4; --to: #2563eb; }
-            .icon-circle.from-emerald-500.to-teal-400 { --from: #10b981; --to: #2dd4bf; }
-            .icon-circle.from-indigo-500.to-purple-500 { --from: #6366f1; --to: #a855f7; }
-            .icon-circle.from-fuchsia-500.to-pink-500 { --from: #d946ef; --to: #ec4899; }
-
-            /* --- Soft Shadow Utilities --- */
-            .shadow-soft {
-              box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.15),
-                          0 2px 6px -2px rgba(15, 23, 42, 0.08);
-            }
-            .hover\:shadow-glow:hover {
-              box-shadow: 0 24px 80px -24px rgba(59,130,246,.22),
-                          0 12px 28px -18px rgba(59,130,246,.16);
-            }
-            </style>
-
-
-            <!-- Hobbies gallery -->
-            <article class="tilt relative overflow-hidden rounded-2xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-xl p-7 shadow-soft hover:shadow-glow transition-all duration-300">
-              <div class="flex items-center justify-between">
-                <h3 class="text-lg font-display font-semibold text-slate-900 dark:text-white">Hobbies</h3>
+    
+          <!-- Window: Career Highlights -->
+          <div
+            class="about-window md:absolute rounded-2xl border text-slate-900 dark:text-slate-100 bg-white/90 dark:bg-slate-900/95 border-slate-200/80 dark:border-white/15 shadow-soft md:w-[420px]"
+            style="top: 18rem; left: 2rem;"
+            data-draggable
+          >
+            <div
+              class="flex items-center justify-between px-4 py-2 border-b border-slate-200/80 dark:border-white/10 cursor-move bg-slate-100/80 dark:bg-slate-900/90"
+              data-drag-handle
+            >
+              <span class="font-mono text-[11px] text-slate-500 dark:text-slate-300 lowercase tracking-wide">
+                career-highlights
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" class="text-xs text-slate-400 hover:text-slate-900 dark:hover:text-slate-100" data-minimize>–</button>
+                <button type="button" class="text-xs text-slate-400 hover:text-rose-500" data-close>×</button>
               </div>
-
-              <div class="mt-4 grid grid-cols-2 gap-3">
-                <!-- Replace src with your images; keeps aspect with subtle overlay -->
-                <a href="#" class="group block relative rounded-xl overflow-hidden">
-                  <img src="https://f1chronicle.com/wp-content/uploads/2024/01/SI202412010400-1920x1080.jpg" alt="Formula One" class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"></div>
-                  <span class="absolute bottom-2 left-2 text-xs font-medium text-white">Formula One</span>
-                </a>
-                <a href="#" class="group block relative rounded-xl overflow-hidden">
-                  <img src="https://www.heart.org/-/media/Images/News/2022/November-2022/1118SoccerBrainHealth_SC.jpg?sc_lang=en&hash=F655F07F5BF8FA9F38B2292052C59BE8" alt="Soccer" class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"></div>
-                  <span class="absolute bottom-2 left-2 text-xs font-medium text-white">Soccer</span>
-                </a>
-                <a href="#" class="group block relative rounded-xl overflow-hidden">
-                  <img src="https://img.freepik.com/premium-vector/rap-single-word-letters-graffiti-style_464314-12959.jpg?semt=ais_items_boosted&w=740" alt="Rap" class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"></div>
-                  <span class="absolute bottom-2 left-2 text-xs font-medium text-white">Rap</span>
-                </a>
-                <a href="#" class="group block relative rounded-xl overflow-hidden">
-                  <img src="https://marketplace.canva.com/EAGPUYeq0o4/1/0/1600w/canva-white-simple-bordered-coffee-shop-landscape-inspirational-meme-AYHZlnpPMuI.jpg" alt="Memes" class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"></div>
-                  <span class="absolute bottom-2 left-2 text-xs font-medium text-white">Memes</span>
-                </a>
-                <a href="#" class="group block relative rounded-xl overflow-hidden">
-                  <img src="https://www.sportsboom.com/_next/image?url=https%3A%2F%2Fassets.sportsboom.com%2FGetty_Images_1247348876_807c2f9fcb.jpg&w=3840&q=75" alt="Cricket" class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"></div>
-                  <span class="absolute bottom-2 left-2 text-xs font-medium text-white">Cricket</span>
-                </a>
-                <a href="#" class="group block relative rounded-xl overflow-hidden">
-                  <img src="https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2NoZXNzLTQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=" alt="Chess" class="h-28 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]">
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-black/0"></div>
-                  <span class="absolute bottom-2 left-2 text-xs font-medium text-white">Chess</span>
-                </a>
-              </div>
-            </article>
+            </div>
+    
+            <div class="window-body px-5 pb-5 pt-4 text-sm space-y-2 text-slate-700 dark:text-slate-200">
+              <p>🧪 Contributed to research on scientific retractions and clinical workflow modeling at Michigan Medicine.</p>
+              <p>🔐 Collaborated with a nuclear power plant to build an Intrusion Detection System for SCADA networks using anomaly detection and ML.</p>
+              <p>🏏 Represented my state in U-14 and U-16 cricket tournaments, building discipline and strategic thinking.</p>
+              <p>⛳ Played a round of mini-golf with Arjen Robben and nearly won.</p>
+              <p>🎮 Logged over 1,000 hours on FIFA and learned way too much about tactics and expected goals.</p>
+            </div>
           </div>
+    
+          <!-- Window: What Drives Me -->
+          <div
+            class="about-window md:absolute rounded-2xl border text-slate-900 dark:text-slate-100 bg-white/90 dark:bg-slate-900/95 border-slate-200/80 dark:border-white/15 shadow-soft md:w-[360px]"
+            style="top: 2.5rem; right: 2rem;"
+            data-draggable
+          >
+            <div
+              class="flex items-center justify-between px-4 py-2 border-b border-slate-200/80 dark:border-white/10 cursor-move bg-slate-100/80 dark:bg-slate-900/90"
+              data-drag-handle
+            >
+              <span class="font-mono text-[11px] text-slate-500 dark:text-slate-300 lowercase tracking-wide">
+                what-drives-me
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" class="text-xs text-slate-400 hover:text-slate-900 dark:hover:text-slate-100" data-minimize>–</button>
+                <button type="button" class="text-xs text-slate-400 hover:text-rose-500" data-close>×</button>
+              </div>
+            </div>
+    
+            <div class="window-body px-5 pb-5 pt-4 text-sm space-y-2 text-slate-700 dark:text-slate-200">
+              <p>💸 Funding my future dog’s vet bills.</p>
+              <p>🤖 Teaching machines to make fewer mistakes than me.</p>
+              <p>💡 Data, design, and dumb jokes in roughly equal proportion.</p>
+            </div>
+          </div>
+    
+          <!-- Window: Hobbies -->
+          <div
+            class="about-window md:absolute rounded-2xl border text-slate-900 dark:text-slate-100 bg-white/90 dark:bg-slate-900/95 border-slate-200/80 dark:border-white/15 shadow-soft md:w-[440px]"
+            style="top: 20rem; right: 2rem;"
+            data-draggable
+          >
+            <div
+              class="flex items-center justify-between px-4 py-2 border-b border-slate-200/80 dark:border-white/10 cursor-move bg-slate-100/80 dark:bg-slate-900/90"
+              data-drag-handle
+            >
+              <span class="font-mono text-[11px] text-slate-500 dark:text-slate-300 lowercase tracking-wide">
+                hobbies
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" class="text-xs text-slate-400 hover:text-slate-900 dark:hover:text-slate-100" data-minimize>–</button>
+                <button type="button" class="text-xs text-slate-400 hover:text-rose-500" data-close>×</button>
+              </div>
+            </div>
+    
+            <div class="window-body px-5 pb-5 pt-4">
+              <div class="grid grid-cols-2 gap-3">
+                <div class="relative overflow-hidden rounded-xl group">
+                  <img src="https://f1chronicle.com/wp-content/uploads/2024/01/SI202412010400-1920x1080.jpg" alt="Formula One" class="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-[1.05]">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <span class="absolute bottom-1.5 left-2 text-[11px] font-medium text-white">Formula One</span>
+                </div>
+                <div class="relative overflow-hidden rounded-xl group">
+                  <img src="https://www.heart.org/-/media/Images/News/2022/November-2022/1118SoccerBrainHealth_SC.jpg?sc_lang=en&hash=F655F07F5BF8FA9F38B2292052C59BE8" alt="Soccer" class="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-[1.05]">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <span class="absolute bottom-1.5 left-2 text-[11px] font-medium text-white">Soccer</span>
+                </div>
+                <div class="relative overflow-hidden rounded-xl group">
+                  <img src="https://img.freepik.com/premium-vector/rap-single-word-letters-graffiti-style_464314-12959.jpg?semt=ais_items_boosted&w=740" alt="Rap" class="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-[1.05]">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <span class="absolute bottom-1.5 left-2 text-[11px] font-medium text-white">Rap</span>
+                </div>
+                <div class="relative overflow-hidden rounded-xl group">
+                  <img src="https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL2NoZXNzLTQuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjoiMTIwMCJ9fX0=" alt="Chess" class="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-[1.05]">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  <span class="absolute bottom-1.5 left-2 text-[11px] font-medium text-white">Chess</span>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Window: Photo -->
+          <div
+            class="about-window md:absolute rounded-2xl border text-slate-900 dark:text-slate-100 bg-white/90 dark:bg-slate-900/95 border-slate-200/80 dark:border-white/15 shadow-soft md:w-[260px]"
+            style="top: 8rem; left: 50%; transform: translateX(-50%);"
+            data-draggable
+          >
+            <div
+              class="flex items-center justify-between px-4 py-2 border-b border-slate-200/80 dark:border-white/10 cursor-move bg-slate-100/80 dark:bg-slate-900/90"
+              data-drag-handle
+            >
+              <span class="font-mono text-[11px] text-slate-500 dark:text-slate-300 lowercase tracking-wide">
+                portrait
+              </span>
+              <div class="flex items-center gap-2">
+                <button type="button" class="text-xs text-slate-400 hover:text-slate-900 dark:hover:text-slate-100" data-minimize>–</button>
+                <button type="button" class="text-xs text-slate-400 hover:text-rose-500" data-close>×</button>
+              </div>
+            </div>
+    
+            <div class="window-body p-4">
+              <div class="relative rounded-xl overflow-hidden">
+                <img src="Potrait.png" alt="Ayush Shah portrait" class="w-full h-48 object-cover">
+              </div>
+            </div>
+          </div>
+    
         </div>
       </div>
-    </section>
-
+    </section>    
+    
     <!-- subtle glow utilities to match your theme -->
     <style>
-      .hover\:shadow-glow:hover{
-        box-shadow: 0 24px 80px -24px rgba(59,130,246,.22), 0 12px 28px -18px rgba(59,130,246,.16);
+      .about-tag {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.8rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-width: 1px;
+        border-style: solid;
+        backdrop-filter: blur(10px);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      .shadow-soft{
-        box-shadow: 0 10px 30px -12px rgba(15,23,42,.15), 0 2px 6px -2px rgba(15,23,42,.08);
+      .about-tag:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px -10px rgba(15,23,42,0.4);
+      }
+
+      /* minimized state: hide body */
+      .about-window--minimized .window-body {
+        display: none;
+      }
+
+      /* On small screens: windows just stack */
+      @media (max-width: 767px) {
+        #about-desktop {
+          padding: 1rem;
+          min-height: auto;
+        }
+        .about-window {
+          position: static !important;
+          width: 100% !important;
+          transform: none !important;
+          margin-bottom: 1rem;
+        }
       }
     </style>
 
+    <script>
+      (function () {
+        const desktop = document.getElementById('about-desktop');
+        if (!desktop) return;
+
+        const windows = desktop.querySelectorAll('[data-draggable]');
+
+        windows.forEach(win => {
+          const header = win.querySelector('[data-drag-handle]');
+          let isDragging = false;
+          let startX, startY, startLeft, startTop;
+
+          // make it absolute only on desktop
+          if (window.innerWidth >= 768) {
+            win.style.position = 'absolute';
+          }
+
+          header.addEventListener('mousedown', (e) => {
+            if (window.innerWidth < 768) return; // no drag on mobile
+            isDragging = true;
+            win.style.zIndex = String(Date.now()); // bring to front
+            const rect = win.getBoundingClientRect();
+            startX = e.clientX;
+            startY = e.clientY;
+            startLeft = rect.left - desktop.getBoundingClientRect().left;
+            startTop = rect.top - desktop.getBoundingClientRect().top;
+            document.body.style.userSelect = 'none';
+          });
+
+          document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            win.style.left = `${startLeft + dx}px`;
+            win.style.top = `${startTop + dy}px`;
+          });
+
+          document.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            document.body.style.userSelect = '';
+          });
+
+          // minimize / close
+          const closeBtn = win.querySelector('[data-close]');
+          const minBtn = win.querySelector('[data-minimize]');
+          const body = win.querySelector('.window-body');
+
+          if (closeBtn) {
+            closeBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              win.style.display = 'none';
+            });
+          }
+          if (minBtn && body) {
+            minBtn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              win.classList.toggle('about-window--minimized');
+            });
+          }
+        });
+      })();
+    </script>
 
     <!-- Contact -->
-    <section id="contact" class="py-16">
+    <section id="contact" class="pt-8 pb-16">
       <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <div class="rounded-3xl border border-white/20 dark:border-white/10 bg-white/70 dark:bg-slate-900/60 backdrop-blur-12 p-8 shadow-soft reveal">
           <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -1709,15 +1826,48 @@
 
     // Theme toggle with localStorage
     const root = document.documentElement;
-    const themeToggle = document.getElementById('themeToggle');
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      root.classList.add('dark');
+    function syncThemeToggle(isDark) {
+      const toggle = document.getElementById('themeToggle');
+      if (!toggle) return;
+      toggle.classList.toggle('is-dark', isDark);
+      toggle.setAttribute('aria-pressed', String(isDark));
     }
-    themeToggle.addEventListener('click', () => {
-      const willDark = !root.classList.contains('dark');
-      root.classList.toggle('dark');
-      localStorage.setItem('theme', willDark ? 'dark' : 'light');
+
+    // Initialize theme from localStorage / system
+    (function initTheme() {
+      const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const root = document.documentElement;
+
+      let isDark;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        root.classList.add('dark');
+        isDark = true;
+      } else {
+        root.classList.remove('dark');
+        isDark = false;
+      }
+
+      // keep <meta name="color-scheme"> in sync
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      if (meta) meta.setAttribute('content', isDark ? 'dark light' : 'light dark');
+
+      // sync the pill UI
+      syncThemeToggle(isDark);
+    })();
+
+    // Toggle on click
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isNowDark = !root.classList.contains('dark');
+
+      root.classList.toggle('dark', isNowDark);
+      localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
+
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      if (meta) meta.setAttribute('content', isNowDark ? 'dark light' : 'light dark');
+
+      syncThemeToggle(isNowDark);
     });
 
     // Hide header on scroll down

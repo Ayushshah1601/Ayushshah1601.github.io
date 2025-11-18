@@ -37,9 +37,92 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
   <style>
+    body { cursor: none; }
     :root{
       --ac1:#41e2ff; --ac2:#9b8cff; --ac3:#00ffa8; --ac4:#ff7ca3;
       --text-soft:#cfd6e6;
+    }
+    /* === Theme pill toggle === */
+    .theme-toggle {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      border-radius: 9999px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle__track {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 0 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.25);
+      background: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 40%, #bae6fd 100%);
+      transition: background 0.35s ease, border-color 0.35s ease;
+    }
+
+    .theme-toggle__icon {
+      font-size: 14px;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .theme-toggle__icon--sun {
+      opacity: 1;
+    }
+
+    .theme-toggle__icon--moon {
+      opacity: 0.2;
+      transform: scale(0.9);
+    }
+
+    .theme-toggle__knob {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 9999px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #e5e7eb);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.35);
+      transition: transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+      pointer-events: none;
+    }
+
+    /* Dark mode visual state */
+    .theme-toggle.is-dark .theme-toggle__track {
+      background: radial-gradient(circle at 20% 20%, #0f172a, #020617 60%);
+      border-color: rgba(15, 23, 42, 0.9);
+    }
+
+    .theme-toggle.is-dark .theme-toggle__knob {
+      transform: translateX(30px); /* 60 - (3*2) - 24 = 30 */
+    }
+
+    .theme-toggle.is-dark .theme-toggle__icon--sun {
+      opacity: 0.2;
+      transform: scale(0.9);
+    }
+
+    .theme-toggle.is-dark .theme-toggle__icon--moon {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Light/dark background integration */
+    html:not(.dark) .theme-toggle__track {
+      box-shadow: 0 4px 12px rgba(148, 163, 184, 0.4);
+    }
+    html.dark .theme-toggle__track {
+      box-shadow: 0 4px 18px rgba(15, 23, 42, 0.8);
     }
     body{
       background:
@@ -114,10 +197,23 @@
       box-shadow:0 0 0 4px rgba(65,226,255,.1)
     }
     .cursor{
-      position:fixed;width:10px;height:10px;border-radius:50%;
-      background:radial-gradient(circle at 30% 30%,var(--ac2),var(--ac1));
-      opacity:.35;filter:blur(1px);transform:translate(-50%,-50%);
-      pointer-events:none;z-index:60
+      position: fixed;
+      width: 26px;
+      height: 26px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 60;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;          /* football size */
+      line-height: 1;
+      border-radius: 9999px;
+
+      background: transparent;
+      opacity: 1;
+      filter: drop-shadow(0 0 6px rgba(0,0,0,0.35)); /* subtle glow so it shows on light bg */
     }
     html:not(.dark) body{
       background:
@@ -126,9 +222,18 @@
         linear-gradient(180deg, #f7fafc 0%, #eef2f7 50%, #eaf0f6 100%);
       color:#0f172a;
     }
-    html:not(.dark) .bg-black\/30{background-color:rgba(0,0,0,.06)!important}
-    html:not(.dark) .bg-noir\/70{background-color:rgba(15,17,23,.06)!important}
-    html:not(.dark) .ring-white\/10{--tw-ring-color:rgba(0,0,0,.08)!important}
+    html:not(.dark){--text-soft: #4b5563;}
+
+    html:not(.dark) .text-white\/60 { color: rgba(15,23,42,0.60) !important; }
+    html:not(.dark) .text-white\/70 { color: rgba(15,23,42,0.70) !important; }
+    html:not(.dark) .text-white\/80 { color: rgba(15,23,42,0.80) !important; }
+
+    html:not(.dark) .bg-black\/30   { background-color: rgba(255,255,255,0.88) !important; }
+    html:not(.dark) .bg-white\/5    { background-color: rgba(255,255,255,0.96) !important; }
+    html:not(.dark) .bg-noir\/70    { background-color: rgba(255,255,255,0.90) !important; }
+    html:not(.dark) .border-white\/10 { border-color: rgba(15,23,42,0.08) !important; }
+    html:not(.dark) .ring-white\/10   { --tw-ring-color: rgba(15,23,42,0.10) !important; }
+
     @media (prefers-reduced-motion:reduce){
       .aurora,.blob{animation:none!important}
       .tilt,.magnetic{transition:none!important}
@@ -456,7 +561,7 @@
   </footer>
 
   <!-- Cursor bead -->
-  <div id="cursor" class="cursor" aria-hidden="true"></div>
+  <div id="cursor" class="cursor" aria-hidden="true">🎶</div>
 
   <script>
     // Spotlight tracking
@@ -547,36 +652,60 @@
     onScroll();
 
     // Cursor bead
-    const bead = document.getElementById('cursor');
-    let cx = 0, cy = 0, tx = 0, ty = 0;
-    const lerp = (a,b,t) => a + (b-a)*t;
-    function loop() {
-      cx = lerp(cx, tx, .18);
-      cy = lerp(cy, ty, .18);
-      bead.style.left = cx + 'px';
-      bead.style.top = cy + 'px';
-      requestAnimationFrame(loop);
-    }
-    addEventListener('mousemove', e => {
-      tx = e.clientX;
-      ty = e.clientY;
-    }, { passive:true });
-    loop();
+    const footballCursor = document.getElementById('cursor');
+
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        footballCursor.style.left = e.clientX + 'px';
+        footballCursor.style.top  = e.clientY + 'px';
+      },
+      { passive: true }
+    );
 
     // Theme init + toggle
-    (function initTheme(){
-      const saved = localStorage.getItem('theme');
+    function syncThemeToggle(isDark) {
+      const toggle = document.getElementById('themeToggle');
+      if (!toggle) return;
+      toggle.classList.toggle('is-dark', isDark);
+      toggle.setAttribute('aria-pressed', String(isDark));
+    }
+
+// Initialize theme from localStorage / system
+    (function initTheme() {
+      const saved = localStorage.getItem('theme'); // 'dark' | 'light' | null
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       const root = document.documentElement;
-      if (saved === 'dark' || (!saved && prefersDark)) root.classList.add('dark');
-      else root.classList.remove('dark');
-    })();
-    document.getElementById('themeToggle')?.addEventListener('click', () => {
-      const root = document.documentElement;
-      const isDark = root.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+      let isDark;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        root.classList.add('dark');
+        isDark = true;
+      } else {
+        root.classList.remove('dark');
+        isDark = false;
+      }
+
+      // keep <meta name="color-scheme"> in sync
       const meta = document.querySelector('meta[name="color-scheme"]');
       if (meta) meta.setAttribute('content', isDark ? 'dark light' : 'light dark');
+
+      // sync the pill UI
+      syncThemeToggle(isDark);
+    })();
+
+    // Toggle on click
+    document.getElementById('themeToggle')?.addEventListener('click', () => {
+      const root = document.documentElement;
+      const isNowDark = !root.classList.contains('dark');
+
+      root.classList.toggle('dark', isNowDark);
+      localStorage.setItem('theme', isNowDark ? 'dark' : 'light');
+
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      if (meta) meta.setAttribute('content', isNowDark ? 'dark light' : 'light dark');
+
+      syncThemeToggle(isNowDark);
     });
   </script>
 </body>

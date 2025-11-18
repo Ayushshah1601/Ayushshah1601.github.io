@@ -53,9 +53,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
   <style>
+    body {
+      cursor: none;
+    }
     :root{
       --ac1:#41e2ff; --ac2:#9b8cff; --ac3:#00ffa8; --ac4:#ff7ca3;
-      --text-soft: #cfd6e6;
+      --text-soft: #4b5563;
     }
     body{
       background:
@@ -114,9 +117,24 @@
     .dot.active{ background: var(--ac1); transform: scale(1.25); box-shadow: 0 0 0 4px rgba(65,226,255,.1); }
 
     /* Cursor bead */
-    .cursor{ position: fixed; width:10px; height:10px; border-radius:50%;
-      background: radial-gradient(circle at 30% 30%, var(--ac2), var(--ac1)); opacity:.35; filter: blur(1px);
-      transform: translate(-50%,-50%); pointer-events:none; z-index:60;
+    .cursor{
+      position: fixed;
+      width: 26px;
+      height: 26px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 60;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;          /* football size */
+      line-height: 1;
+      border-radius: 9999px;
+
+      background: transparent;
+      opacity: 1;
+      filter: drop-shadow(0 0 6px rgba(0,0,0,0.35)); /* subtle glow so it shows on light bg */
     }
 
     /* Dark theme background */
@@ -136,11 +154,21 @@
         linear-gradient(180deg, #f7fafc 0%, #eef2f7 50%, #eaf0f6 100%);
       color: #0f172a;
     }
-
+    html:not(.dark) .text-white\/60 { color: rgba(15,23,42,0.60) !important; }
+    html:not(.dark) .text-white\/70 { color: rgba(15,23,42,0.70) !important; }
+    html:not(.dark) .text-white\/80 { color: rgba(15,23,42,0.80) !important; }
     /* Tweak glass and rings for light mode */
-    html:not(.dark) .bg-black\/30 { background-color: rgba(0,0,0,0.06) !important; }
-    html:not(.dark) .bg-noir\/70  { background-color: rgba(15,17,23,0.06) !important; }
-    html:not(.dark) .ring-white\/10 { --tw-ring-color: rgba(0,0,0,.08) !important; }
+    /* Glass surfaces look white-ish instead of dark in light mode */
+    html:not(.dark) .bg-black\/30   { background-color: rgba(255,255,255,0.88) !important; }
+    html:not(.dark) .bg-white\/5    { background-color: rgba(255,255,255,0.96) !important; }
+    html:not(.dark) .bg-noir\/70    { background-color: rgba(255,255,255,0.90) !important; }
+
+    /* Borders should be subtle dark, not white */
+    html:not(.dark) .border-white\/10 { border-color: rgba(15,23,42,0.08) !important; }
+
+    /* Rings (for the small stat cards, etc.) */
+    html:not(.dark) .ring-white\/10   { --tw-ring-color: rgba(15,23,42,0.10) !important; }
+
 
     /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
@@ -447,7 +475,7 @@
   </footer>
 
   <!-- Cursor bead -->
-  <div id="cursor" class="cursor" aria-hidden="true"></div>
+  <div id="cursor" class="cursor" aria-hidden="true">⚽</div>
 
   <script>
     // --- Spotlight tracking ---
@@ -518,11 +546,16 @@
     addEventListener('scroll', onScroll, { passive:true }); onScroll();
 
     // --- Cursor bead ---
-    const bead = document.getElementById('cursor');
-    let cx=0, cy=0, tx=0, ty=0;
-    const lerp=(a,b,t)=>a+(b-a)*t;
-    function loop(){ cx = lerp(cx, tx, .18); cy = lerp(cy, ty, .18); bead.style.left = cx+'px'; bead.style.top = cy+'px'; requestAnimationFrame(loop); }
-    addEventListener('mousemove', e=>{ tx = e.clientX; ty = e.clientY; }, {passive:true}); loop();
+    const footballCursor = document.getElementById('cursor');
+
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        footballCursor.style.left = e.clientX + 'px';
+        footballCursor.style.top  = e.clientY + 'px';
+      },
+      { passive: true }
+    );
 
     // THEME TOGGLE -----
     (function initTheme(){
